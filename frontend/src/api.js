@@ -1,18 +1,13 @@
-import axios from 'axios';
-
-const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
-});
-
-// 🔥 REQUEST INTERCEPTOR (WAJIB)
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
+    // ❗ Skip auth header untuk login & register
+    if (config.url === '/login' || config.url === '/users') {
+        return config;
+    }
 
+    const token = localStorage.getItem('token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
 
     return config;
 });
-
-export default api;

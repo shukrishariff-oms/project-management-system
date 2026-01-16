@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
     LayoutGrid, ChevronDown, ChevronRight, Search, Plus,
     Folder, Users, DollarSign, Layers, PieChart, Briefcase,
-    Settings, LogOut, User
+    Settings, LogOut, User, Menu, X
 } from 'lucide-react';
 
 const SidebarItem = ({ icon: Icon, label, to, isActive, hasSubmenu, isOpen, onClick }) => (
@@ -33,17 +33,48 @@ const DashboardLayout = ({ children, headerActions }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const [isProjectsOpen, setIsProjectsOpen] = useState(true);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/login');
     };
 
+    const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+
     return (
-        <div className="min-h-screen bg-slate-50 flex font-sans selection:bg-blue-100 selection:text-blue-700">
+        <div className="min-h-screen bg-slate-50 flex font-sans selection:bg-blue-100 selection:text-blue-700 relative">
+
+            {/* Mobile Header / Hamburger */}
+            <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#0f172a] border-b border-slate-800 flex items-center justify-between px-4 z-[40]">
+                <div className="flex items-center gap-2">
+                    <div className="bg-blue-600 p-1.5 rounded-lg">
+                        <LayoutGrid size={18} className="text-white" />
+                    </div>
+                    <span className="text-white font-bold text-sm">ISTMO</span>
+                </div>
+                <button
+                    onClick={toggleMobileMenu}
+                    className="p-2 text-slate-400 hover:text-white transition-colors"
+                >
+                    <Menu size={24} />
+                </button>
+            </header>
+
+            {/* Mobile Overlay */}
+            {isMobileMenuOpen && (
+                <div
+                    className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[45] lg:hidden"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                />
+            )}
 
             {/* SIDEBAR NAVIGATION */}
-            <aside className="fixed left-0 top-0 h-screen w-64 bg-[#0f172a] border-r border-slate-800 flex flex-col z-50">
+            <aside className={`
+                fixed left-0 top-0 h-screen w-64 bg-[#0f172a] border-r border-slate-800 flex flex-col z-[50]
+                transition-transform duration-300 ease-in-out
+                ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+            `}>
 
                 {/* Brand Header */}
                 <div className="p-5 flex items-center gap-3 border-b border-slate-800/50">
@@ -54,7 +85,12 @@ const DashboardLayout = ({ children, headerActions }) => {
                         <h1 className="text-white font-bold text-sm tracking-tight leading-none">ISTMO Department</h1>
                         <span className="text-[10px] text-slate-500 font-medium">Enterprise Workspace</span>
                     </div>
-                    <ChevronDown size={14} className="text-slate-500 ml-auto" />
+                    <button
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="lg:hidden ml-auto p-1 text-slate-500 hover:text-white"
+                    >
+                        <X size={18} />
+                    </button>
                 </div>
 
                 {/* Search Bar */}
@@ -160,7 +196,7 @@ const DashboardLayout = ({ children, headerActions }) => {
             </aside>
 
             {/* MAIN CONTENT AREA */}
-            <main className="flex-1 ml-64 min-h-screen bg-white transition-all duration-300 relative">
+            <main className="flex-1 lg:ml-64 min-h-screen bg-white transition-all duration-300 relative pt-16 lg:pt-0">
                 {/* Optional Topbar for specific page actions if needed, or rely on page content */}
                 <div className="max-w-[1600px] mx-auto p-8 space-y-6">
                     {headerActions && (

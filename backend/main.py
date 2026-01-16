@@ -19,15 +19,11 @@ models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI()
 
 # CORS Setup
-origins = [
-    "http://localhost:5173", # Vite default port
-    "http://localhost:5174",
-    "http://localhost:3000",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

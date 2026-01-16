@@ -5,7 +5,7 @@ import sys
 
 def seed_render():
     # Render URL
-    url = "https://project-management-system-uskt.onrender.com/users"
+    url = "https://project-management-system-uzkt.onrender.com/users"
     
     payload = {
         "email": "admin@ijn.com.my",

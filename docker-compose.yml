@@ -13,7 +13,7 @@ services:
       - SECRET_KEY=your_secure_secret_key_here
 
   frontend:
-    build: 
+    build:
       context: ./frontend
       args:
         - VITE_API_URL=/
@@ -23,6 +23,13 @@ services:
       - "81:80"
     depends_on:
       - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pms-frontend.rule=Host(`istmo.ohmaishoot.com`)"
+      - "traefik.http.routers.pms-frontend.entrypoints=websecure"
+      - "traefik.http.routers.pms-frontend.tls=true"
+      - "traefik.http.routers.pms-frontend.tls.certresolver=letsencrypt"
+      - "traefik.http.services.pms-frontend.loadbalancer.server.port=80"
 
 volumes:
   backend-data:

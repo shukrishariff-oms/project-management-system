@@ -123,13 +123,13 @@ class ProjectTask(Base):
     # subtasks = relationship("ProjectTask", backref=relationship("ProjectTask", remote_side=[id]))
     # comments = relationship("TaskComment", back_populates="task", cascade="all, delete-orphan")
 
-class TaskComment(Base):
-    __tablename__ = "task_comments"
+# class TaskComment(Base):
+#     __tablename__ = "task_comments"
 
-    id = Column(Integer, primary_key=True, index=True)
-    task_id = Column(Integer, ForeignKey("project_tasks.id"), nullable=False)
-    user_name = Column(String, nullable=False) # Who commented
-    content = Column(String, nullable=False)
-    created_at = Column(String, nullable=False) # ISO Format datetime
+#     id = Column(Integer, primary_key=True, index=True)
+#     task_id = Column(Integer, ForeignKey("project_tasks.id"), nullable=False)
+#     user_name = Column(String, nullable=False) # Who commented
+#     content = Column(String, nullable=False)
+#     created_at = Column(String, nullable=False) # ISO Format datetime
 
-    task = relationship("ProjectTask", back_populates="comments")
+#     task = relationship("ProjectTask", back_populates="comments")

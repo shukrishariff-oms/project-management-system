@@ -141,7 +141,8 @@ const ProjectDetails = () => {
         duration: '',
         completion_percentage: 0,
         status: 'Not Started',
-        completion_date: ''
+        completion_date: '',
+        parent_id: null
     });
 
     const fetchProjectDetails = async () => {
@@ -483,7 +484,8 @@ const ProjectDetails = () => {
             duration: '',
             completion_percentage: 0,
             status: 'Not Started',
-            completion_date: ''
+            completion_date: '',
+            parent_id: null
         });
     };
 
@@ -1135,52 +1137,75 @@ const ProjectDetails = () => {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-slate-100">
-                                                {project.tasks.map((task, index) => {
-                                                    const status = getTaskStatus(task);
-                                                    const isSelected = selectedTasks.has(task.id);
-                                                    return (
-                                                        <tr key={task.id}
-                                                            onClick={() => handleTaskClick(task)}
-                                                            className={`transition-colors cursor-pointer ${isSelected ? 'bg-blue-50 hover:bg-blue-100' : 'hover:bg-slate-50'}`}>
-                                                            <td className="px-4 py-3 text-center" onClick={(e) => e.stopPropagation()}>
-                                                                <input
-                                                                    type="checkbox"
-                                                                    checked={isSelected}
-                                                                    onChange={() => toggleSelect(task.id)}
-                                                                    className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
-                                                                />
-                                                            </td>
-                                                            <td className="px-4 py-3 text-center text-slate-400 text-xs font-mono">{index + 1}</td>
-                                                            <td className="px-4 py-3 text-center">
-                                                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${status.color}`}>
-                                                                    {status.label}
-                                                                </span>
-                                                            </td>
-                                                            <td className={`px-4 py-3 font-medium text-xs ${task.status === 'Completed' ? 'text-slate-400 line-through' : 'text-slate-800'}`}>
-                                                                {task.task_name}
-                                                                {task.subtasks && task.subtasks.length > 0 && (
-                                                                    <span className="ml-2 text-[10px] bg-slate-100 px-1.5 rounded text-slate-500 border border-slate-200">
-                                                                        {task.subtasks.filter(t => t.status === 'Completed').length}/{task.subtasks.length}
+                                                {(() => {
+                                                    const taskMap = {};
+                                                    project.tasks.forEach(t => { taskMap[t.id] = { ...t, children: [] }; });
+                                                    const roots = [];
+                                                    project.tasks.forEach(t => {
+                                                        if (t.parent_id && taskMap[t.parent_id]) {
+                                                            taskMap[t.parent_id].children.push(taskMap[t.id]);
+                                                        } else {
+                                                            roots.push(taskMap[t.id]);
+                                                        }
+                                                    });
+
+                                                    const flattened = [];
+                                                    const walk = (node, level = 0) => {
+                                                        flattened.push({ ...node, level });
+                                                        node.children.forEach(c => walk(c, level + 1));
+                                                    };
+                                                    roots.forEach(r => walk(r));
+
+                                                    return flattened.map((task, index) => {
+                                                        const status = getTaskStatus(task);
+                                                        const isSelected = selectedTasks.has(task.id);
+                                                        return (
+                                                            <tr key={task.id}
+                                                                onClick={() => handleTaskClick(task)}
+                                                                className={`transition-colors cursor-pointer ${isSelected ? 'bg-blue-50 hover:bg-blue-100' : 'hover:bg-slate-50'}`}>
+                                                                <td className="px-4 py-3 text-center" onClick={(e) => e.stopPropagation()}>
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checked={isSelected}
+                                                                        onChange={() => toggleSelect(task.id)}
+                                                                        className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                                                                    />
+                                                                </td>
+                                                                <td className="px-4 py-3 text-center text-slate-400 text-xs font-mono">{index + 1}</td>
+                                                                <td className="px-4 py-3 text-center">
+                                                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${status.color}`}>
+                                                                        {status.label}
                                                                     </span>
-                                                                )}
-                                                                {task.assigned_to && (
-                                                                    <div className="flex items-center gap-1 mt-1">
-                                                                        <div className="w-4 h-4 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[8px] font-bold">
-                                                                            {task.assigned_to.charAt(0)}
-                                                                        </div>
-                                                                        <span className="text-[10px] text-slate-500">{task.assigned_to}</span>
+                                                                </td>
+                                                                <td className={`px-4 py-3 font-medium text-xs ${task.status === 'Completed' ? 'text-slate-400 line-through' : 'text-slate-800'}`}>
+                                                                    <div className="flex items-center">
+                                                                        {task.level > 0 && <div className="flex mr-2">{Array.from({ length: task.level }).map((_, i) => <div key={i} className="w-4 h-px bg-slate-200 mr-2 self-center" />)}<ChevronRight size={10} className="text-slate-300 mr-1" /></div>}
+                                                                        {task.task_name}
                                                                     </div>
-                                                                )}
-                                                            </td>
-                                                            <td className="px-4 py-3 text-center text-slate-500 font-mono text-xs whitespace-nowrap">{formatDate(task.start_date)}</td>
-                                                            <td className="px-4 py-3 text-center text-slate-500 font-mono text-xs whitespace-nowrap">{formatDate(task.end_date)}</td>
-                                                            <td className="px-4 py-3 text-center text-slate-500 font-mono text-xs whitespace-nowrap">{task.completion_date ? formatDate(task.completion_date) : '-'}</td>
-                                                            <td className="px-4 py-3 text-center">
-                                                                <button onClick={(e) => { e.stopPropagation(); handleEditTask(task); }} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Pencil size={14} /></button>
-                                                            </td>
-                                                        </tr>
-                                                    );
-                                                })}
+                                                                    {task.subtasks && task.subtasks.length > 0 && (
+                                                                        <span className="ml-2 text-[10px] bg-slate-100 px-1.5 rounded text-slate-500 border border-slate-200">
+                                                                            {task.subtasks.filter(t => t.status === 'Completed').length}/{task.subtasks.length}
+                                                                        </span>
+                                                                    )}
+                                                                    {task.assigned_to && (
+                                                                        <div className="flex items-center gap-1 mt-1">
+                                                                            <div className="w-4 h-4 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[8px] font-bold">
+                                                                                {task.assigned_to.charAt(0)}
+                                                                            </div>
+                                                                            <span className="text-[10px] text-slate-500">{task.assigned_to}</span>
+                                                                        </div>
+                                                                    )}
+                                                                </td>
+                                                                <td className="px-4 py-3 text-center text-slate-500 font-mono text-xs whitespace-nowrap">{formatDate(task.start_date)}</td>
+                                                                <td className="px-4 py-3 text-center text-slate-500 font-mono text-xs whitespace-nowrap">{formatDate(task.end_date)}</td>
+                                                                <td className="px-4 py-3 text-center text-slate-500 font-mono text-xs whitespace-nowrap">{task.completion_date ? formatDate(task.completion_date) : '-'}</td>
+                                                                <td className="px-4 py-3 text-center">
+                                                                    <button onClick={(e) => { e.stopPropagation(); handleEditTask(task); }} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Pencil size={14} /></button>
+                                                                </td>
+                                                            </tr>
+                                                        );
+                                                    });
+                                                })()}
                                             </tbody>
                                         </table>
                                     </div>
@@ -1638,6 +1663,24 @@ const ProjectDetails = () => {
                                             />
                                         </div>
                                     )}
+                                </div>
+
+                                <div className="mt-4">
+                                    <label className="block text-sm font-medium text-slate-700 mb-2 font-bold flex items-center gap-2">
+                                        <ChevronRight size={14} className="text-blue-500" />
+                                        Parent Task (Optional)
+                                    </label>
+                                    <select
+                                        value={taskForm.parent_id || ''}
+                                        onChange={(e) => setTaskForm({ ...taskForm, parent_id: e.target.value ? parseInt(e.target.value) : null })}
+                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
+                                    >
+                                        <option value="">None (Primary Task)</option>
+                                        {project?.tasks?.filter(t => !editingTask || t.id !== editingTask.id).map(t => (
+                                            <option key={t.id} value={t.id}>{t.task_name}</option>
+                                        ))}
+                                    </select>
+                                    <p className="mt-1 text-[10px] text-slate-400">Select a parent task to create a sub-task relationship.</p>
                                 </div>
 
                                 <div className="flex gap-3 mt-6">

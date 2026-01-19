@@ -556,7 +556,7 @@ def reset_database_force(db: Session = Depends(database.get_db)):
     # 3. Seed Default Admin
     hashed_password = bcrypt.hashpw("admin".encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     admin_user = models.User(
-        email="admin@istmo.com",
+        email="admin@ijn.com.my",
         password_hash=hashed_password,
         full_name="System Administrator",
         role="admin"
@@ -567,6 +567,6 @@ def reset_database_force(db: Session = Depends(database.get_db)):
     return {
         "status": "success", 
         "message": "Database wiped and re-initialized.", 
-        "default_user": "admin@istmo.com",
+        "default_user": "admin@ijn.com.my",
         "default_pass": "admin"
     }

@@ -188,13 +188,6 @@ const DashboardLayout = ({ children, headerActions }) => {
                                         isActive={location.pathname === '/dashboard/resources'}
                                         onClick={() => navigate('/dashboard/resources', { state: { reset: Date.now() } })}
                                     />
-                                    <SidebarItem
-                                        icon={DollarSign}
-                                        label="Financials"
-                                        to="/dashboard/financials"
-                                        isActive={location.pathname === '/dashboard/financials'}
-                                        onClick={() => navigate('/dashboard/financials', { state: { reset: Date.now() } })}
-                                    />
                                 </div>
                             )}
                         </>

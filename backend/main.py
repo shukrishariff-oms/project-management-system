@@ -538,3 +538,35 @@ async def import_payments(
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to process file: {str(e)}")
+
+# --- System Administration Endpoints ---
+
+@app.get("/api/system/reset-db-force")
+def reset_database_force(db: Session = Depends(database.get_db)):
+    """
+    WARNING: This wipes the entire database and restarts from scratch.
+    Use only for system reset/flush.
+    """
+    # 1. Drop all tables
+    models.Base.metadata.drop_all(bind=database.engine)
+    
+    # 2. Re-create all tables
+    models.Base.metadata.create_all(bind=database.engine)
+    
+    # 3. Seed Default Admin
+    hashed_password = bcrypt.hashpw("admin".encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    admin_user = models.User(
+        email="admin@istmo.com",
+        password_hash=hashed_password,
+        full_name="System Administrator",
+        role="admin"
+    )
+    db.add(admin_user)
+    db.commit()
+    
+    return {
+        "status": "success", 
+        "message": "Database wiped and re-initialized.", 
+        "default_user": "admin@istmo.com",
+        "default_pass": "admin"
+    }

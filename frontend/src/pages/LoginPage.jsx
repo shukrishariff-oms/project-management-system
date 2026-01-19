@@ -33,11 +33,18 @@ const LoginPage = () => {
             }
         } catch (err) {
             console.error(err);
-            if (err.response && err.response.data && err.response.data.detail) {
-                setError(err.response.data.detail);
-            } else {
-                setError('Authentication failed. Please check your connection.');
+            // DEBUG MODE: Show exact error details
+            let debugMsg = 'Authentication failed. ';
+            if (err.message) debugMsg += ` (${err.message})`;
+            if (err.code) debugMsg += ` [${err.code}]`;
+            if (err.response) {
+                debugMsg += ` Status: ${err.response.status}`;
+                if (err.response.data && err.response.data.detail) {
+                    setError(err.response.data.detail);
+                    return;
+                }
             }
+            setError(debugMsg);
         } finally {
             setLoading(false);
         }

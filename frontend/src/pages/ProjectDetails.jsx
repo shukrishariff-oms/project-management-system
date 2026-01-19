@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { downloadTaskTemplate, downloadPaymentTemplate, parseExcelFile } from '../utils/excelUtils';
 import {
     ArrowLeft,
     Plus,
@@ -144,6 +145,75 @@ const ProjectDetails = () => {
         completion_date: '',
         parent_id: null
     });
+
+    const handleImportTasks = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        try {
+            const data = await parseExcelFile(file);
+            console.log("Importing tasks:", data);
+
+            // Loop and create tasks
+            for (const item of data) {
+                const newTask = {
+                    task_name: item['Task Name'] || 'New Task',
+                    start_date: item['Start Date (YYYY-MM-DD)'] || new Date().toISOString().split('T')[0],
+                    end_date: item['End Date (YYYY-MM-DD)'] || new Date().toISOString().split('T')[0],
+                    status: item['Status'] || 'Not Started',
+                    completion_percentage: item['Completion %'] || 0,
+                    assigned_to: item['Assigned To'] || '',
+                    duration: '',
+                    completion_date: null,
+                    parent_id: null
+                };
+
+                await api.post(`/api/projects/${id}/tasks`, newTask);
+            }
+
+            fetchProjectDetails();
+            alert("Tasks imported successfully!");
+        } catch (error) {
+            console.error("Error importing tasks:", error);
+            alert("Failed to import tasks. Please check the template format.");
+        }
+        e.target.value = null; // Reset input
+    };
+
+    const handleImportPayments = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        try {
+            const data = await parseExcelFile(file);
+            console.log("Importing payments:", data);
+
+            for (const item of data) {
+                const newPayment = {
+                    deliverable: item['Payment Item/Deliverable'] || 'New Deliverable',
+                    phase: item['Phase'] || 'TBD',
+                    planned_amount: parseFloat(item['Planned Amount']) || 0,
+                    plan_date: item['Plan Date (YYYY-MM-DD)'] || new Date().toISOString().split('T')[0],
+                    category: item['Category'] || 'Other',
+                    po_number: '',
+                    invoice_number: '',
+                    status: 'Not Paid',
+                    actual_amount: 0,
+                    actual_payment_date: null,
+                    supporting_document: ''
+                };
+
+                await api.post(`/api/projects/${id}/payments`, newPayment);
+            }
+
+            fetchProjectDetails();
+            alert("Payments imported successfully!");
+        } catch (error) {
+            console.error("Error importing payments:", error);
+            alert("Failed to import payments. Please check the template format.");
+        }
+        e.target.value = null;
+    };
 
     const fetchProjectDetails = async () => {
         try {
@@ -810,10 +880,12 @@ const ProjectDetails = () => {
 
                         <div className="flex-1"></div>
                         <div className="flex gap-2">
-                            <button onClick={handleDownloadTemplate} className="text-xs font-bold text-slate-600 hover:bg-slate-200 px-3 py-1.5 rounded flex items-center gap-1 transition-colors"><Download size={14} /> Template</button>
-                            <button onClick={handleImportClick} className="text-xs font-bold text-slate-600 hover:bg-slate-200 px-3 py-1.5 rounded flex items-center gap-1 transition-colors"><Upload size={14} /> Import</button>
+                            <button onClick={downloadPaymentTemplate} className="text-xs font-bold text-slate-600 hover:bg-slate-200 px-3 py-1.5 rounded flex items-center gap-1 transition-colors"><Download size={14} /> Template</button>
+                            <label className="text-xs font-bold text-slate-600 hover:bg-slate-200 px-3 py-1.5 rounded flex items-center gap-1 transition-colors cursor-pointer">
+                                <Upload size={14} /> Import
+                                <input type="file" accept=".xlsx" className="hidden" onChange={handleImportPayments} />
+                            </label>
                             <button onClick={() => { setEditingPayment(null); resetPaymentForm(); setShowPaymentModal(true); }} className="text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-4 py-1.5 rounded shadow-sm flex items-center gap-1 transition-colors"><Plus size={14} /> Add Payment</button>
-                            <input type="file" id="import-file-input" accept=".xlsx" className="hidden" onChange={handleFileChange} />
                         </div>
                     </div>
                 )
@@ -1080,6 +1152,19 @@ const ProjectDetails = () => {
                                             Delete ({selectedTasks.size})
                                         </button>
                                     )}
+                                    <button
+                                        onClick={downloadTaskTemplate}
+                                        className="flex items-center gap-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors"
+                                        title="Download Excel Template"
+                                    >
+                                        <Download size={14} />
+                                        Template
+                                    </button>
+                                    <label className="flex items-center gap-2 bg-amber-50 hover:bg-amber-100 text-amber-600 border border-amber-200 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer" title="Import from Excel">
+                                        <Upload size={14} />
+                                        Import
+                                        <input type="file" accept=".xlsx, .xls" className="hidden" onChange={handleImportTasks} />
+                                    </label>
                                     <button
                                         onClick={() => { setEditingTask(null); resetTaskForm(); setShowTaskModal(true); }}
                                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors shadow-sm"

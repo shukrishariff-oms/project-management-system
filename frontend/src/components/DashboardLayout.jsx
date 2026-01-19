@@ -24,8 +24,8 @@ const SidebarItem = ({ icon: Icon, label, to, isActive, hasSubmenu, isOpen, onCl
     <div
         onClick={onClick}
         className={`flex items - center justify - between px - 3 py - 2.5 rounded - xl cursor - pointer transition - all duration - 200 mb - 1 group ${isActive
-                ? 'bg-primary/20 text-primary shadow-sm'
-                : 'text-muted-foreground hover:bg-white/5 hover:text-white'
+            ? 'bg-primary/20 text-primary shadow-sm'
+            : 'text-muted-foreground hover:bg-white/5 hover:text-white'
             } `}
     >
         <div className="flex items-center gap-3">
@@ -232,8 +232,10 @@ transition - transform duration - 300 ease -in -out
             <main className="flex-1 lg:ml-64 min-h-screen transition-all duration-300 relative pt-16 lg:pt-0">
                 <div className="max-w-[1600px] mx-auto p-8 space-y-8 animate-fade-in">
                     {headerActions && (
-                        <div className="flex justify-end gap-3 glass-card p-2 border-white/5 inline-flex ml-auto mb-4">
-                            {headerActions}
+                        <div className="flex justify-end mb-6">
+                            <div className="flex gap-3 glass-card p-2 border-white/5">
+                                {headerActions}
+                            </div>
                         </div>
                     )}
                     {children}

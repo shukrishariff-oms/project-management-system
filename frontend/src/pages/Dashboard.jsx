@@ -35,8 +35,8 @@ const KPICard = ({ title, value, subtext, trend, icon: Icon, color, isAlert, onC
             `}
         >
             {/* Background Decor */}
-            <div className={`absolute top-0 right-0 p-3 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500`}>
-                <Icon size={120} />
+            <div className={`absolute -top-2 -right-2 p-3 opacity-[0.05] group-hover:opacity-[0.1] transition-opacity transform group-hover:scale-110 duration-500 pointer-events-none`}>
+                <Icon size={80} className="text-slate-900" />
             </div>
 
             <div className="flex justify-between items-start relative z-10">

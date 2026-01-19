@@ -109,6 +109,9 @@ class ProjectTask(Base):
     completion_date = Column(Date, nullable=True)
     status = Column(String, default="Not Started")
     
+    # Hierarchy
+    parent_id = Column(Integer, ForeignKey("project_tasks.id"), nullable=True)
+    
     
     
     # Relationships

@@ -424,7 +424,7 @@ def create_task(
         completion_percentage=task.completion_percentage,
         completion_date=task.completion_date,
         status=task.status,
-        # parent_id=task.parent_id,
+        parent_id=task.parent_id,
         # assigned_to=task.assigned_to,
         # priority=task.priority,
         # description=task.description,
@@ -626,3 +626,18 @@ def reset_database_force(db: Session = Depends(database.get_db)):
         "default_user": "admin@ijn.com.my",
         "default_pass": "admin"
     }
+
+@app.get("/api/system/migrate-tasks")
+def migrate_tasks_schema(db: Session = Depends(database.get_db)):
+    """
+    Temporary endpoint to add parent_id column to project_tasks table.
+    Safe to run even if column exists (will fail gracefully).
+    """
+    from sqlalchemy import text
+    try:
+        db.execute(text("ALTER TABLE project_tasks ADD COLUMN parent_id INTEGER REFERENCES project_tasks(id)"))
+        db.commit()
+        return {"status": "success", "message": "Added parent_id column to project_tasks table"}
+    except Exception as e:
+        # Likely column already exists
+        return {"status": "info", "message": f"Migration skipped or failed: {str(e)}"}

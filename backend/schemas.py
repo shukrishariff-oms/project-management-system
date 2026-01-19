@@ -161,6 +161,7 @@ class ProjectTaskBase(BaseModel):
     completion_percentage: Optional[int] = 0
     completion_date: Optional[date] = None
     status: Optional[str] = "Not Started"
+    parent_id: Optional[int] = None
     
     
     # New Fields
@@ -176,6 +177,7 @@ class ProjectTaskUpdate(BaseModel):
     completion_percentage: Optional[int] = None
     completion_date: Optional[date] = None
     status: Optional[str] = None
+    parent_id: Optional[int] = None
 
 class ProjectUpdate(BaseModel):
     name: Optional[str] = None

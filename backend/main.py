@@ -449,43 +449,6 @@ def delete_task(
     
     return {"message": "Task deleted successfully"}
 
-# --- Task Comments Endpoints ---
-
-@app.post("/api/tasks/{task_id}/comments", response_model=schemas.TaskComment)
-def create_task_comment(
-    task_id: int,
-    comment: schemas.TaskCommentCreate,
-    db: Session = Depends(database.get_db)
-):
-    """Add a comment to a task"""
-    # Verify task exists
-    db_task = db.query(models.ProjectTask).filter(models.ProjectTask.id == task_id).first()
-    if not db_task:
-        raise HTTPException(status_code=404, detail="Task not found")
-        
-    db_comment = models.TaskComment(
-        task_id=task_id,
-        user_name=comment.user_name,
-        content=comment.content,
-        created_at=datetime.now().isoformat()
-    )
-    db.add(db_comment)
-    db.commit()
-    db.refresh(db_comment)
-    return db_comment
-
-@app.get("/api/projects/{project_id}/tasks_nested", response_model=list[schemas.ProjectTask])
-def get_nested_tasks(
-    project_id: int,
-    db: Session = Depends(database.get_db)
-):
-    """Get tasks with subtasks for a project"""
-    # Only fetch root tasks (where parent_id is None)
-    tasks = db.query(models.ProjectTask).filter(
-        models.ProjectTask.project_id == project_id,
-        models.ProjectTask.parent_id == None
-    ).all()
-    return tasks
 
 # --- Excel Import/Export Endpoints ---
 

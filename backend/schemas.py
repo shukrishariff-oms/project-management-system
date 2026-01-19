@@ -195,8 +195,6 @@ class ProjectUpdate(BaseModel):
 class ProjectTask(ProjectTaskBase):
     id: int
     project_id: int
-    subtasks: list['ProjectTask'] = []
-    comments: list['TaskComment'] = []
     
     class Config:
         from_attributes = True

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation, Outlet } from 'react-router-dom';
 import {
     LayoutGrid,
     Briefcase,
@@ -231,7 +231,7 @@ const DashboardLayout = ({ children, headerActions }) => {
                             </div>
                         </div>
                     )}
-                    {children}
+                    {children ? children : <Outlet />}
                 </div>
             </main>
         </div>

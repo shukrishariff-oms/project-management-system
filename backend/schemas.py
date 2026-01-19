@@ -174,12 +174,12 @@ class ProjectTaskBase(BaseModel):
     status: Optional[str] = "Not Started"
     
     # New Fields
-    parent_id: Optional[int] = None
-    assigned_to: Optional[str] = None
-    priority: Optional[str] = "Medium"
-    description: Optional[str] = None
-    tags: Optional[str] = None
-    order_index: Optional[int] = 0
+    # parent_id: Optional[int] = None
+    # assigned_to: Optional[str] = None
+    # priority: Optional[str] = "Medium"
+    # description: Optional[str] = None
+    # tags: Optional[str] = None
+    # order_index: Optional[int] = 0
 
 class ProjectTaskCreate(ProjectTaskBase):
     pass
@@ -192,12 +192,12 @@ class ProjectTaskUpdate(BaseModel):
     completion_percentage: Optional[int] = None
     completion_date: Optional[date] = None
     status: Optional[str] = None
-    parent_id: Optional[int] = None
-    assigned_to: Optional[str] = None
-    priority: Optional[str] = None
-    description: Optional[str] = None
-    tags: Optional[str] = None
-    order_index: Optional[int] = None
+    # parent_id: Optional[int] = None
+    # assigned_to: Optional[str] = None
+    # priority: Optional[str] = None
+    # description: Optional[str] = None
+    # tags: Optional[str] = None
+    # order_index: Optional[int] = None
 
 class ProjectUpdate(BaseModel):
     name: Optional[str] = None

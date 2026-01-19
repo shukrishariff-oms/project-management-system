@@ -147,6 +147,22 @@ class MattersArising(MattersArisingBase):
     class Config:
         from_attributes = True
 
+# Task Comment Schemas
+class TaskCommentBase(BaseModel):
+    content: str
+    user_name: str
+
+class TaskCommentCreate(TaskCommentBase):
+    pass
+
+class TaskComment(TaskCommentBase):
+    id: int
+    task_id: int
+    created_at: str
+
+    class Config:
+        from_attributes = True
+
 # Project Task Schemas
 class ProjectTaskBase(BaseModel):
     task_name: str
@@ -156,6 +172,14 @@ class ProjectTaskBase(BaseModel):
     completion_percentage: Optional[int] = 0
     completion_date: Optional[date] = None
     status: Optional[str] = "Not Started"
+    
+    # New Fields
+    parent_id: Optional[int] = None
+    assigned_to: Optional[str] = None
+    priority: Optional[str] = "Medium"
+    description: Optional[str] = None
+    tags: Optional[str] = None
+    order_index: Optional[int] = 0
 
 class ProjectTaskCreate(ProjectTaskBase):
     pass
@@ -168,6 +192,12 @@ class ProjectTaskUpdate(BaseModel):
     completion_percentage: Optional[int] = None
     completion_date: Optional[date] = None
     status: Optional[str] = None
+    parent_id: Optional[int] = None
+    assigned_to: Optional[str] = None
+    priority: Optional[str] = None
+    description: Optional[str] = None
+    tags: Optional[str] = None
+    order_index: Optional[int] = None
 
 class ProjectUpdate(BaseModel):
     name: Optional[str] = None
@@ -191,6 +221,8 @@ class ProjectUpdate(BaseModel):
 class ProjectTask(ProjectTaskBase):
     id: int
     project_id: int
+    subtasks: list['ProjectTask'] = []
+    comments: list['TaskComment'] = []
     
     class Config:
         from_attributes = True

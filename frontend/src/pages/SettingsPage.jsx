@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
+import DashboardLayout from '../components/DashboardLayout';
 import { User, Shield, Key, Save, Trash2, Plus, AlertCircle, CheckCircle } from 'lucide-react';
 
 const SettingsPage = () => {
@@ -9,53 +10,55 @@ const SettingsPage = () => {
 
     useEffect(() => {
         const role = localStorage.getItem('user_role');
-        const email = localStorage.getItem('user_email'); // Assuming we store this, or get from token
+        const email = localStorage.getItem('user_email');
         setUserRole(role || 'staff');
         setCurrentUserEmail(email || '');
     }, []);
 
     return (
-        <div className="space-y-6">
-            <div>
-                <h1 className="text-2xl font-bold text-slate-800">Settings</h1>
-                <p className="text-slate-500">Manage your profile and system preferences.</p>
-            </div>
+        <DashboardLayout>
+            <div className="space-y-6">
+                <div>
+                    <h1 className="text-2xl font-bold text-slate-800">Settings</h1>
+                    <p className="text-slate-500">Manage your profile and system preferences.</p>
+                </div>
 
-            {/* Tabs */}
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                <div className="flex border-b border-slate-200">
-                    <button
-                        onClick={() => setActiveTab('profile')}
-                        className={`px-6 py-4 text-sm font-medium flex items-center gap-2 border-b-2 transition-colors ${activeTab === 'profile' ? 'border-blue-600 text-blue-600 bg-blue-50/50' : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'}`}
-                    >
-                        <User size={18} />
-                        My Profile
-                    </button>
-                    {userRole === 'admin' && (
+                {/* Tabs */}
+                <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div className="flex border-b border-slate-200">
                         <button
-                            onClick={() => setActiveTab('users')}
-                            className={`px-6 py-4 text-sm font-medium flex items-center gap-2 border-b-2 transition-colors ${activeTab === 'users' ? 'border-blue-600 text-blue-600 bg-blue-50/50' : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'}`}
+                            onClick={() => setActiveTab('profile')}
+                            className={`px-6 py-4 text-sm font-medium flex items-center gap-2 border-b-2 transition-colors ${activeTab === 'profile' ? 'border-blue-600 text-blue-600 bg-blue-50/50' : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'}`}
                         >
-                            <Shield size={18} />
-                            User Management
+                            <User size={18} />
+                            My Profile
                         </button>
-                    )}
-                    <button
-                        onClick={() => setActiveTab('system')}
-                        className={`px-6 py-4 text-sm font-medium flex items-center gap-2 border-b-2 transition-colors ${activeTab === 'system' ? 'border-blue-600 text-blue-600 bg-blue-50/50' : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'}`}
-                    >
-                        <AlertCircle size={18} />
-                        System Info
-                    </button>
-                </div>
+                        {userRole === 'admin' && (
+                            <button
+                                onClick={() => setActiveTab('users')}
+                                className={`px-6 py-4 text-sm font-medium flex items-center gap-2 border-b-2 transition-colors ${activeTab === 'users' ? 'border-blue-600 text-blue-600 bg-blue-50/50' : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'}`}
+                            >
+                                <Shield size={18} />
+                                User Management
+                            </button>
+                        )}
+                        <button
+                            onClick={() => setActiveTab('system')}
+                            className={`px-6 py-4 text-sm font-medium flex items-center gap-2 border-b-2 transition-colors ${activeTab === 'system' ? 'border-blue-600 text-blue-600 bg-blue-50/50' : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'}`}
+                        >
+                            <AlertCircle size={18} />
+                            System Info
+                        </button>
+                    </div>
 
-                <div className="p-6 min-h-[400px]">
-                    {activeTab === 'profile' && <ProfileSettings />}
-                    {activeTab === 'users' && userRole === 'admin' && <UserManagement currentUserEmail={currentUserEmail} />}
-                    {activeTab === 'system' && <SystemInfo />}
+                    <div className="p-6 min-h-[400px]">
+                        {activeTab === 'profile' && <ProfileSettings />}
+                        {activeTab === 'users' && userRole === 'admin' && <UserManagement currentUserEmail={currentUserEmail} />}
+                        {activeTab === 'system' && <SystemInfo />}
+                    </div>
                 </div>
             </div>
-        </div>
+        </DashboardLayout>
     );
 };
 
@@ -190,8 +193,6 @@ const UserManagement = ({ currentUserEmail }) => {
     }, []);
 
     const handleDelete = async (id, email) => {
-        // Prevent deleting self (though backend should handle too)
-        // Note: We might not strictly have email in the list object depending on API output
         if (!window.confirm(`Are you sure you want to delete user ${email}?`)) return;
 
         try {
@@ -206,7 +207,6 @@ const UserManagement = ({ currentUserEmail }) => {
     const handleCreateUser = async (e) => {
         e.preventDefault();
         try {
-            // Use the signup endpoint
             await api.post('/users', newUser);
             setShowAddModal(false);
             setNewUser({ email: '', full_name: '', password: '', role: 'staff' });

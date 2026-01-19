@@ -9,7 +9,7 @@ import SettingsPage from './pages/SettingsPage';
 import ResourceManagementPage from './pages/ResourceManagementPage';
 import ProjectDetails from './pages/ProjectDetails';
 import MyWorkPage from './pages/MyWorkPage';
-import DashboardLayout from './components/DashboardLayout';
+// DashboardLayout import not needed here as pages use it individually, but leaving imports clean
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -45,23 +45,63 @@ function App() {
           <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
 
           {/* Protected Routes */}
-          <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
-            <Route index element={<Navigate to="/dashboard/projects" replace />} />
-            <Route path="projects" element={<Dashboard />} />
-            <Route path="departments" element={<DepartmentDashboard />} />
-            <Route path="financials" element={<FinancialPage />} />
-            <Route path="settings" element={<SettingsPage />} />
-            <Route path="resources" element={<ResourceManagementPage />} />
-            <Route path="my-work" element={<MyWorkPage />} />
-          </Route>
+          {/* Note: Individual pages wrap themselves with DashboardLayout to allow custom headerActions */}
+          <Route path="/dashboard" element={<ProtectedRoute><Navigate to="/dashboard/projects" replace /></ProtectedRoute>} />
+
+          <Route
+            path="/dashboard/projects"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/departments"
+            element={
+              <ProtectedRoute>
+                <DepartmentDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/financials"
+            element={
+              <ProtectedRoute>
+                <FinancialPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/settings"
+            element={
+              <ProtectedRoute>
+                <SettingsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/resources"
+            element={
+              <ProtectedRoute>
+                <ResourceManagementPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/my-work"
+            element={
+              <ProtectedRoute>
+                <MyWorkPage />
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="/projects/:id"
             element={
               <ProtectedRoute>
-                <DashboardLayout>
-                  <ProjectDetails />
-                </DashboardLayout>
+                <ProjectDetails />
               </ProtectedRoute>
             }
           />

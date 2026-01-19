@@ -296,7 +296,8 @@ def create_payment(
         remark=payment.remark,
         payment_date=payment.payment_date,
         po_number=payment.po_number,
-        invoice_number=payment.invoice_number
+        invoice_number=payment.invoice_number,
+        supporting_document=payment.supporting_document
     )
     db.add(db_payment)
     db.commit()
@@ -423,12 +424,12 @@ def create_task(
         completion_percentage=task.completion_percentage,
         completion_date=task.completion_date,
         status=task.status,
-        parent_id=task.parent_id,
-        assigned_to=task.assigned_to,
-        priority=task.priority,
-        description=task.description,
-        tags=task.tags,
-        order_index=task.order_index
+        # parent_id=task.parent_id,
+        # assigned_to=task.assigned_to,
+        # priority=task.priority,
+        # description=task.description,
+        # tags=task.tags,
+        # order_index=task.order_index
     )
     db.add(db_task)
     db.commit()

@@ -1,9 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Brand Colors */
+  --primary: 224 100% 58%;
+  --primary-foreground: 0 0% 100%;
+  
+  --background: 222 47% 4%;
+  --foreground: 213 31% 91%;
+
+  --card: 222 47% 7%;
+  --card-foreground: 213 31% 91%;
+  
+  --popover: 222 47% 4%;
+  --popover-foreground: 213 31% 91%;
+
+  --secondary: 222 47% 11%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 223 47% 11%;
+  --muted-foreground: 215.4 16.3% 56.9%;
+
+  --accent: 216 100% 50%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 224 100% 58%;
+  
+  --radius: 0.75rem;
+
+  /* Glossy / Glassmorphism */
+  --glass-bg: rgba(13, 17, 23, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 12px;
+}
+
 @layer base {
-  body {
-    @apply antialiased text-slate-800 bg-white;
+  * {
+    @apply border-border;
   }
+  body {
+    @apply bg-[#030711] text-foreground antialiased selection:bg-primary/30 selection:text-white font-['Plus_Jakarta_Sans',sans-serif];
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(224, 100%, 58%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(216, 100%, 50%, 0.1) 0px, transparent 50%);
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    @apply rounded-xl shadow-xl;
+  }
+
+  .premium-button {
+    @apply relative overflow-hidden px-6 py-2.5 rounded-lg font-medium transition-all duration-300 active:scale-95;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    box-shadow: 0 4px 15px hsla(var(--primary), 0.3);
+  }
+
+  .premium-button:hover {
+    @apply shadow-2xl;
+    box-shadow: 0 8px 25px hsla(var(--primary), 0.5);
+    filter: brightness(1.1);
+  }
+
+  .nav-blur {
+    background: rgba(3, 7, 17, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--border));
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
 }

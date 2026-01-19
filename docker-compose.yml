@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: pms-backend
+    restart: always
+    volumes:
+      - ./backend/sql_app_v2.db:/app/sql_app_v2.db
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=your_secure_secret_key_here
+
+  frontend:
+    build: 
+      context: ./frontend
+      args:
+        - VITE_API_URL=/
+    container_name: pms-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend

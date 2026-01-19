@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const api = axios.create({
     // Hardcoded for Production Stability
-    baseURL: 'http://91.99.142.54:8001',
+    // Using relative path because Backend responds at domain root
+    baseURL: '',
     // baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000',
 });
 

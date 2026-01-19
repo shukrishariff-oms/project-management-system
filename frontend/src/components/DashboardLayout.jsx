@@ -10,20 +10,20 @@ import {
     LogOut,
     Menu,
     X,
-    FolderOpen, // Added FolderOpen as per user's Code Edit
+    FolderOpen,
     Settings,
-    ChevronDown, // Retained from original
-    ChevronRight, // Retained from original
-    Search, // Retained from original
-    Plus, // Retained from original
-    Folder, // Retained from original
-    User // Retained from original
+    ChevronDown,
+    ChevronRight,
+    Search,
+    Plus,
+    Folder,
+    User
 } from 'lucide-react';
 
 const SidebarItem = ({ icon: Icon, label, to, isActive, hasSubmenu, isOpen, onClick }) => (
     <div
         onClick={onClick}
-        className={`flex items - center justify - between px - 3 py - 2.5 rounded - xl cursor - pointer transition - all duration - 200 mb - 1 group ${isActive
+        className={`flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-200 mb-1 group ${isActive
             ? 'bg-primary/20 text-primary shadow-sm'
             : 'text-muted-foreground hover:bg-white/5 hover:text-white'
             } `}
@@ -33,7 +33,7 @@ const SidebarItem = ({ icon: Icon, label, to, isActive, hasSubmenu, isOpen, onCl
             <span className="text-sm font-semibold tracking-tight">{label}</span>
         </div>
         {hasSubmenu && (
-            <div className={`transition - transform duration - 200 ${isOpen ? 'rotate-180' : ''} `}>
+            <div className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''} `}>
                 <ChevronDown size={14} className="opacity-50" />
             </div>
         )}
@@ -92,10 +92,10 @@ const DashboardLayout = ({ children, headerActions }) => {
 
             {/* SIDEBAR NAVIGATION */}
             <aside className={`
-                fixed left - 0 top - 0 h - screen w - 64 glass - card border - none rounded - none border - r border - white / 5 flex flex - col z - [50]
-transition - transform duration - 300 ease -in -out
+                fixed left-0 top-0 h-screen w-64 glass-card border-none rounded-none border-r border-white/5 flex flex-col z-[50]
+                transition-transform duration-300 ease-in-out
                 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-`}>
+            `}>
 
                 {/* Brand Header */}
                 <div className="p-6 flex items-center gap-3 border-b border-white/5">

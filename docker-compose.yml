@@ -6,7 +6,7 @@ services:
     container_name: pms-backend
     restart: always
     volumes:
-      - ./backend/sql_app_v2.db:/app/sql_app_v2.db
+      - backend-data:/app/data
     ports:
       - "8001:8000"
     environment:
@@ -23,3 +23,6 @@ services:
       - "81:80"
     depends_on:
       - backend
+
+volumes:
+  backend-data:

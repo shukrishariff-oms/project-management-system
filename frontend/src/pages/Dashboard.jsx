@@ -75,8 +75,34 @@ const HealthBadge = ({ status }) => {
     if (status === 'Critical') color = 'bg-rose-100 text-rose-700 border-rose-200';
 
     return (
-        <span className={`px-2 py-1 rounded-md text-xs font-bold border ${color} block text-center w-full`}>
+        <span className={`px-2 py-1 rounded-md text-[10px] font-bold border ${color} block text-center w-full uppercase`}>
             {status || 'N/A'}
+        </span>
+    );
+};
+
+const PriorityBadge = ({ level }) => {
+    let color = 'bg-slate-100 text-slate-600';
+    if (level === 'High') color = 'bg-rose-100 text-rose-700 border-rose-200';
+    if (level === 'Medium') color = 'bg-amber-100 text-amber-700 border-amber-200';
+    if (level === 'Low') color = 'bg-emerald-100 text-emerald-700 border-emerald-200';
+
+    return (
+        <span className={`px-2 py-1 rounded-md text-[10px] font-bold border ${color} inline-block text-center uppercase min-w-[60px]`}>
+            {level || 'Medium'}
+        </span>
+    );
+};
+
+const RiskBadge = ({ level }) => {
+    let color = 'bg-slate-100 text-slate-600';
+    if (level === 'High') color = 'bg-rose-500 text-white border-rose-600';
+    if (level === 'Medium') color = 'bg-amber-500 text-white border-amber-600';
+    if (level === 'Low') color = 'bg-emerald-500 text-white border-emerald-600';
+
+    return (
+        <span className={`px-2 py-1 rounded-md text-[10px] font-bold border ${color} inline-block text-center uppercase min-w-[60px]`}>
+            {level || 'Low'}
         </span>
     );
 };
@@ -575,10 +601,10 @@ const Dashboard = () => {
                                     <thead className="text-xs text-slate-400 uppercase bg-white border-b border-slate-100">
                                         <tr>
                                             <th className="px-6 py-4 font-semibold w-1/3">Project Name</th>
-                                            <th className="px-2 py-4 text-center font-semibold">Team</th>
-                                            <th className="px-2 py-4 text-center font-semibold">Schedule</th>
-                                            <th className="px-2 py-4 text-center font-semibold">Payment</th>
-                                            <th className="px-2 py-4 text-center font-semibold">Overall</th>
+                                            <th className="px-2 py-4 text-center font-semibold text-[10px]">Priority</th>
+                                            <th className="px-2 py-4 text-center font-semibold text-[10px]">Risk</th>
+                                            <th className="px-2 py-4 text-center font-semibold text-[10px]">Schedule</th>
+                                            <th className="px-2 py-4 text-center font-semibold text-[10px]">Overall</th>
                                             <th className="px-6 py-4 text-right font-semibold">Status</th>
                                         </tr>
                                     </thead>
@@ -591,32 +617,18 @@ const Dashboard = () => {
                                                     </Link>
                                                     <div className="text-xs text-slate-400 mt-1 truncate max-w-[300px]">{p.description}</div>
                                                 </td>
-                                                <td className="px-2 py-5">
-                                                    <div className="flex -space-x-2 overflow-hidden justify-center pl-1">
-                                                        {getAssignedStaff(p).length > 0 ? getAssignedStaff(p).slice(0, 3).map((staff, i) => (
-                                                            <div key={i} className="relative group/avatar cursor-pointer" title={`${staff.name} (${staff.role})`}>
-                                                                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white border-2 border-white ring-1 ring-slate-100 ${p.project_manager === (staff.name || '') ? 'bg-purple-600' : 'bg-indigo-500'
-                                                                    }`}>
-                                                                    {(staff.name || '?').charAt(0)}
-                                                                </div>
-                                                            </div>
-                                                        )) : (
-                                                            <span className="text-slate-300">-</span>
-                                                        )}
-                                                        {getAssignedStaff(p).length > 3 && (
-                                                            <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-[9px] font-bold text-slate-500 border-2 border-white">
-                                                                +{getAssignedStaff(p).length - 3}
-                                                            </div>
-                                                        )}
-                                                    </div>
+                                                <td className="px-2 py-5 text-center">
+                                                    <PriorityBadge level={p.priority} />
+                                                </td>
+                                                <td className="px-2 py-5 text-center">
+                                                    <RiskBadge level={p.risk_level} />
                                                 </td>
                                                 <td className="px-2 py-5"><HealthBadge status={p.health?.schedule_status} /></td>
-                                                <td className="px-2 py-5"><HealthBadge status={checkOverdue(p) ? 'Critical' : (p.health?.budget_status || 'Good')} /></td>
                                                 <td className="px-2 py-5">
                                                     <div className="flex justify-center">
-                                                        {Object.values(p.health || {}).includes('Critical') ?
+                                                        {Object.values(p.health || {}).includes('Critical') || p.risk_level === 'High' ?
                                                             <span className="w-3 h-3 rounded-full bg-rose-600 ring-4 ring-rose-100 animate-pulse"></span> :
-                                                            Object.values(p.health || {}).includes('At Risk') ?
+                                                            Object.values(p.health || {}).includes('At Risk') || p.priority === 'High' ?
                                                                 <span className="w-3 h-3 rounded-full bg-amber-500"></span> :
                                                                 <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
                                                         }

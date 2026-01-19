@@ -10,6 +10,12 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
         planned_cost: '',
         status: 'Not Started',
         description: '',
+        objective: '',
+        priority: 'Medium',
+        risk_level: 'Low',
+        department: '',
+        tags: '',
+        is_archived: 0
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -35,6 +41,12 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                 planned_cost: projectData.planned_cost?.toString() || '',
                 status: projectData.status || 'Not Started',
                 description: projectData.description || '',
+                objective: projectData.objective || '',
+                priority: projectData.priority || 'Medium',
+                risk_level: projectData.risk_level || 'Low',
+                department: projectData.department || '',
+                tags: projectData.tags || '',
+                is_archived: projectData.is_archived || 0
             });
         } else {
             // Reset form when creating new project
@@ -47,6 +59,12 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                 planned_cost: '',
                 status: 'Not Started',
                 description: '',
+                objective: '',
+                priority: 'Medium',
+                risk_level: 'Low',
+                department: '',
+                tags: '',
+                is_archived: 0
             });
         }
         setError('');
@@ -97,6 +115,12 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                 planned_cost: '',
                 status: 'Not Started',
                 description: '',
+                objective: '',
+                priority: 'Medium',
+                risk_level: 'Low',
+                department: '',
+                tags: '',
+                is_archived: 0
             });
 
             // Notify parent and close
@@ -239,6 +263,67 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
 
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Department
+                        </label>
+                        <input
+                            type="text"
+                            name="department"
+                            value={formData.department}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            placeholder="e.g. IT Department"
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-slate-700 mb-2">
+                                Priority Level
+                            </label>
+                            <select
+                                name="priority"
+                                value={formData.priority}
+                                onChange={handleChange}
+                                className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            >
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-slate-700 mb-2">
+                                Risk Level
+                            </label>
+                            <select
+                                name="risk_level"
+                                value={formData.risk_level}
+                                onChange={handleChange}
+                                className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            >
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Project Objective
+                        </label>
+                        <textarea
+                            name="objective"
+                            value={formData.objective}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            placeholder="What is the main goal of this project?"
+                            rows="3"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
                             Remarks (Description)
                         </label>
                         <textarea
@@ -246,8 +331,22 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             value={formData.description}
                             onChange={handleChange}
                             className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                            placeholder="Optional project remarks or description..."
-                            rows="3"
+                            placeholder="Optional project remarks..."
+                            rows="2"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Tags (Comma separated)
+                        </label>
+                        <input
+                            type="text"
+                            name="tags"
+                            value={formData.tags}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            placeholder="e.g. tech, internal, urgent"
                         />
                     </div>
 

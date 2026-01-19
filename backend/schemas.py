@@ -50,7 +50,13 @@ class ProjectBase(BaseModel):
     project_manager: Optional[str] = None
     assigned_to_email: Optional[str] = None
     description: Optional[str] = None
+    objective: Optional[str] = None
     status: Optional[str] = "Not Started"
+    priority: Optional[str] = "Medium"
+    risk_level: Optional[str] = "Low"
+    department: Optional[str] = None
+    is_archived: Optional[int] = 0
+    tags: Optional[str] = None
     progress_percentage: Optional[int] = 0
     start_date: date
     end_date: date
@@ -169,7 +175,13 @@ class ProjectUpdate(BaseModel):
     project_manager: Optional[str] = None
     assigned_to_email: Optional[str] = None
     description: Optional[str] = None
+    objective: Optional[str] = None
     status: Optional[str] = None
+    priority: Optional[str] = None
+    risk_level: Optional[str] = None
+    department: Optional[str] = None
+    is_archived: Optional[int] = None
+    tags: Optional[str] = None
     progress_percentage: Optional[int] = None
     start_date: Optional[date] = None
     end_date: Optional[date] = None

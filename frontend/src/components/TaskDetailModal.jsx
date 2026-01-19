@@ -151,6 +151,7 @@ const TaskDetailModal = ({ isOpen, onClose, task, projectMembers = [], onUpdate 
                     >
                         Overview
                     </button>
+                    {/* DISABLED: Backend schema rolled back. Re-enable when DB supports subtasks/comments.
                     <button
                         onClick={() => setActiveTab('subtasks')}
                         className={`py-3 px-4 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 ${activeTab === 'subtasks' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
@@ -165,6 +166,7 @@ const TaskDetailModal = ({ isOpen, onClose, task, projectMembers = [], onUpdate 
                         <MessageSquare size={16} /> Comments
                         {comments.length > 0 && <span className="bg-slate-100 text-slate-600 text-[10px] px-1.5 py-0.5 rounded-full">{comments.length}</span>}
                     </button>
+                    */}
                 </div>
 
                 {/* Content */}

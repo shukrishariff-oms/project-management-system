@@ -110,26 +110,7 @@ class ProjectTask(Base):
     status = Column(String, default="Not Started")
     
     
-    # New Fields for Major Upgrade
-    # parent_id = Column(Integer, ForeignKey("project_tasks.id"), nullable=True)
-    # assigned_to = Column(String, nullable=True) # Staff Name or Email
-    # priority = Column(String, default="Medium") # Low, Medium, High
-    # description = Column(String, nullable=True) # Rich text description
-    # tags = Column(String, nullable=True)
-    # order_index = Column(Integer, default=0) # For Kanban ordering
     
     # Relationships
     project = relationship("Project", back_populates="tasks")
-    # subtasks = relationship("ProjectTask", backref=relationship("ProjectTask", remote_side=[id]))
-    # comments = relationship("TaskComment", back_populates="task", cascade="all, delete-orphan")
 
-# class TaskComment(Base):
-#     __tablename__ = "task_comments"
-
-#     id = Column(Integer, primary_key=True, index=True)
-#     task_id = Column(Integer, ForeignKey("project_tasks.id"), nullable=False)
-#     user_name = Column(String, nullable=False) # Who commented
-#     content = Column(String, nullable=False)
-#     created_at = Column(String, nullable=False) # ISO Format datetime
-
-#     task = relationship("ProjectTask", back_populates="comments")

@@ -20,13 +20,13 @@ class Project(Base):
     project_manager = Column(String, nullable=True) # Display Name
     assigned_to_email = Column(String, nullable=True, index=True) # Linked Staff Email
     description = Column(String, nullable=True)
-    objective = Column(String, nullable=True)
+    # objective = Column(String, nullable=True)
     status = Column(String, default="In Progress") # Not Started, In Progress, On Hold, Completed, Delayed
-    priority = Column(String, default="Medium") # Low, Medium, High
-    risk_level = Column(String, default="Low") # Low, Medium, High
-    department = Column(String, nullable=True)
-    is_archived = Column(Integer, default=0) # 0 = Active, 1 = Archived
-    tags = Column(String, nullable=True)
+    # priority = Column(String, default="Medium") # Low, Medium, High
+    # risk_level = Column(String, default="Low") # Low, Medium, High
+    # department = Column(String, nullable=True)
+    # is_archived = Column(Integer, default=0) # 0 = Active, 1 = Archived
+    # tags = Column(String, nullable=True)
     progress_percentage = Column(Integer, default=0)
     start_date = Column(Date, nullable=False)
     end_date = Column(Date, nullable=False)

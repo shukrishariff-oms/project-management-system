@@ -261,6 +261,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                         </select>
                     </div>
 
+                    {/* DISABLED: Backend Schema Rollback
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-2">
                             Department
@@ -274,7 +275,9 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             placeholder="e.g. IT Department"
                         />
                     </div>
+                    */}
 
+                    {/* DISABLED: Backend Schema Rollback
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -307,7 +310,9 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             </select>
                         </div>
                     </div>
+                    */}
 
+                    {/* DISABLED: Backend Schema Rollback
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-2">
                             Project Objective
@@ -321,6 +326,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             rows="3"
                         />
                     </div>
+                    */}
 
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -336,6 +342,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                         />
                     </div>
 
+                    {/* DISABLED: Backend Schema Rollback
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-2">
                             Tags (Comma separated)
@@ -349,6 +356,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             placeholder="e.g. tech, internal, urgent"
                         />
                     </div>
+                    */}
 
                     <div className="flex gap-3 mt-6">
                         <button

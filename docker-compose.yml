@@ -8,7 +8,7 @@ services:
     volumes:
       - ./backend/sql_app_v2.db:/app/sql_app_v2.db
     ports:
-      - "8000:8000"
+      - "8001:8000"
     environment:
       - SECRET_KEY=your_secure_secret_key_here
 
@@ -20,6 +20,6 @@ services:
     container_name: pms-frontend
     restart: always
     ports:
-      - "80:80"
+      - "81:80"
     depends_on:
       - backend

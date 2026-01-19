@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException, status, UploadFile, File
+from fastapi.security import OAuth2PasswordBearer
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -65,7 +66,29 @@ def recalculate_project_progress(project_id: int, db: Session):
         progress = int((len(completed) / len(tasks)) * 100)
     
     db.query(models.Project).filter(models.Project.id == project_id).update({"progress_percentage": progress})
+    db.query(models.Project).filter(models.Project.id == project_id).update({"progress_percentage": progress})
     db.commit()
+
+# Auth Dependency
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+    user = db.query(models.User).filter(models.User.email == email).first()
+    if user is None:
+        raise credentials_exception
+    return user
 
 # Routes
 @app.post("/users", response_model=schemas.User)
@@ -83,7 +106,39 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(database.get_db)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
+    db.refresh(db_user)
     return db_user
+
+@app.get("/api/users", response_model=list[schemas.User])
+def get_users(db: Session = Depends(database.get_db)):
+    """Get all users (for admin management)"""
+    users = db.query(models.User).all()
+    return users
+
+@app.put("/api/users/me/password")
+def update_password(
+    pass_update: schemas.UserPasswordUpdate, 
+    current_user: models.User = Depends(get_current_user), 
+    db: Session = Depends(database.get_db)
+):
+    """Change current user's password"""
+    if not verify_password(pass_update.old_password, current_user.password_hash):
+         raise HTTPException(status_code=400, detail="Incorrect old password")
+    
+    current_user.password_hash = get_password_hash(pass_update.new_password)
+    db.commit()
+    return {"message": "Password updated successfully"}
+
+@app.delete("/api/users/{user_id}")
+def delete_user(user_id: int, db: Session = Depends(database.get_db)):
+    """Delete a user account"""
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    db.delete(db_user)
+    db.commit()
+    return {"message": "User deleted successfully"}
 
 @app.post("/login", response_model=schemas.Token)
 def login(user: schemas.UserLogin, db: Session = Depends(database.get_db)):

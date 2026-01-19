@@ -17,8 +17,8 @@ import models, schemas, database
 models.Base.metadata.create_all(bind=database.engine)
 
 # Run manual migration for schema updates
-import manual_migration
-manual_migration.migrate(database.engine)
+# import manual_migration
+# manual_migration.migrate(database.engine)
 
 app = FastAPI()
 

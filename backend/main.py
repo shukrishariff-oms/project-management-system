@@ -16,6 +16,10 @@ import models, schemas, database
 # Create tables
 models.Base.metadata.create_all(bind=database.engine)
 
+# Run manual migration for schema updates
+import manual_migration
+manual_migration.migrate(database.engine)
+
 app = FastAPI()
 
 # CORS Setup

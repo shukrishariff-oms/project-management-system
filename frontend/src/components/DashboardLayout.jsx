@@ -57,7 +57,7 @@ const DashboardLayout = ({ children, headerActions }) => {
             <header className="lg:hidden fixed top-0 left-0 right-0 h-16 nav-blur flex items-center justify-between px-6 z-[40]">
                 <div className="flex items-center gap-2">
                     <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-bold text-white shadow-lg shadow-primary/20">I</div>
-                    <span className="text-white font-bold tracking-tighter">ISTMO</span>
+                    <span className="text-white font-bold tracking-tighter">ISTMO DEPARTMENT</span>
                 </div>
                 <button
                     onClick={toggleMobileMenu}
@@ -88,8 +88,8 @@ const DashboardLayout = ({ children, headerActions }) => {
                         <LayoutGrid size={20} className="text-white" />
                     </div>
                     <div>
-                        <h1 className="text-white font-bold text-sm tracking-tight leading-none">ISTMO Platform</h1>
-                        <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Enterprise Suite</span>
+                        <h1 className="text-white font-bold text-sm tracking-tight leading-none uppercase">ISTMO Department</h1>
+                        <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Internal Workspace</span>
                     </div>
                     <button
                         onClick={() => setIsMobileMenuOpen(false)}

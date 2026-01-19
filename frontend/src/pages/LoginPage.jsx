@@ -55,7 +55,7 @@ const LoginPage = () => {
                             <span className="text-2xl font-black text-primary">I</span>
                         </div>
                         <h2 className="text-3xl font-extrabold text-white tracking-tight">Welcome Back</h2>
-                        <p className="text-muted-foreground mt-2 font-medium">Enterprise Portfolio Managed by ISTMO</p>
+                        <p className="text-muted-foreground mt-2 font-medium">Internal Portal for ISTMO Department</p>
                     </div>
 
                     {error && (

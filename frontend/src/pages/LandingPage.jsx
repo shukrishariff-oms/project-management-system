@@ -20,7 +20,7 @@ const LandingPage = () => {
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <div className="flex items-center gap-2">
                         <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-bold text-white shadow-lg shadow-primary/20">I</div>
-                        <span className="text-xl font-bold tracking-tighter text-white">ISTMO</span>
+                        <span className="text-xl font-bold tracking-tighter text-white uppercase">ISTMO Department</span>
                     </div>
                     <Link to="/login" className="text-sm font-medium hover:text-primary transition-colors">
                         Sign In
@@ -36,20 +36,20 @@ const LandingPage = () => {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                         </span>
-                        NEW VERSION 2.0 LIVE
+                        INTERNAL PORTAL LIVE
                     </div>
                     <h1 className="text-5xl md:text-7xl font-extrabold mb-8 tracking-tighter leading-[1.1]">
-                        Elevate Your <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">Project Portfolio</span>
+                        Streamlining <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">Our Department</span>
                     </h1>
                     <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-                        Track health, finance, and risks with our all-in-one Project Portfolio Management solution designed for high-performance teams.
+                        Centralized Project Portfolio Management for the ISTMO Department. Track health, finance, and risks in one unified workspace.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link to="/login" className="premium-button flex items-center gap-2">
-                            Get Started Free <ArrowRight className="w-4 h-4" />
+                        <Link to="/login" className="premium-button flex items-center gap-2 px-8">
+                            Portal Login <ArrowRight className="w-4 h-4" />
                         </Link>
-                        <button className="px-6 py-2.5 rounded-lg border border-border hover:bg-secondary transition-colors font-medium">
-                            Book a Demo
+                        <button className="px-8 py-2.5 rounded-lg border border-border hover:bg-secondary transition-colors font-medium text-muted-foreground hover:text-white">
+                            Department Guidelines
                         </button>
                     </div>
                 </div>

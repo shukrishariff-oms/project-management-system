@@ -180,13 +180,13 @@ def create_project(project: schemas.ProjectCreate, db: Session = Depends(databas
         planned_cost=project.planned_cost,
         actual_cost=project.actual_cost,
         description=project.description,
-        objective=project.objective,
+        # objective=project.objective,
         status=project.status,
-        priority=project.priority,
-        risk_level=project.risk_level,
-        department=project.department,
-        is_archived=project.is_archived,
-        tags=project.tags,
+        # priority=project.priority,
+        # risk_level=project.risk_level,
+        # department=project.department,
+        # is_archived=project.is_archived,
+        # tags=project.tags,
         progress_percentage=project.progress_percentage
     )
     db.add(db_project)

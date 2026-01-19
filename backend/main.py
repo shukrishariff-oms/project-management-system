@@ -90,40 +90,24 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(database.get_db)
 
 @app.post("/login", response_model=schemas.Token)
 def login(user: schemas.UserLogin, db: Session = Depends(database.get_db)):
-    try:
-        db_user = db.query(models.User).filter(models.User.email == user.email).first()
-        if not db_user:
-            # Separated checks to debug
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="User not found",
-                headers={"WWW-Authenticate": "Bearer"},
-            )
-            
-        if not verify_password(user.password, db_user.password_hash):
-             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Incorrect password",
-                headers={"WWW-Authenticate": "Bearer"},
-            )
-
-        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-        access_token = create_access_token(
-            data={"sub": db_user.email}, expires_delta=access_token_expires
+    db_user = db.query(models.User).filter(models.User.email == user.email).first()
+    if not db_user or not verify_password(user.password, db_user.password_hash):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
         )
-        return {
-            "access_token": access_token, 
-            "token_type": "bearer",
-            "role": db_user.role,
-            "full_name": db_user.full_name,
-            "email": db_user.email
-        }
-    except Exception as e:
-        import traceback
-        error_msg = f"LOGIN CRASH: {str(e)}"
-        print(error_msg)
-        print(traceback.format_exc())
-        raise HTTPException(status_code=500, detail=error_msg)
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": db_user.email}, expires_delta=access_token_expires
+    )
+    return {
+        "access_token": access_token, 
+        "token_type": "bearer",
+        "role": db_user.role,
+        "full_name": db_user.full_name,
+        "email": db_user.email
+    }
 
 @app.get("/")
 def read_root():

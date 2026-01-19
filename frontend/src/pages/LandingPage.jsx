@@ -22,9 +22,6 @@ const LandingPage = () => {
                         <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-bold text-white shadow-lg shadow-primary/20">I</div>
                         <span className="text-xl font-bold tracking-tighter text-white uppercase">ISTMO Department</span>
                     </div>
-                    <Link to="/login" className="text-sm font-medium hover:text-primary transition-colors">
-                        Sign In
-                    </Link>
                 </div>
             </nav>
 

@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import DashboardLayout from '../components/DashboardLayout';
 import {
     LayoutGrid, DollarSign, AlertTriangle, CheckCircle, Briefcase, TrendingUp, Search, Filter, X, RefreshCw,
-    Clock, AlertOctagon, ShieldAlert, FileText, ChevronRight, ChevronDown, Activity, Users, Target, BarChart2, AlertCircle, LightbulbIcon, Calendar
+    Clock, AlertOctagon, ShieldAlert, FileText, ChevronRight, ChevronDown, Activity, Users, Target, BarChart2, AlertCircle, LightbulbIcon, Calendar, Play
 } from 'lucide-react';
 import {
     ResponsiveContainer, Tooltip as RechartsTooltip, Legend, LineChart, Line, XAxis, YAxis, CartesianGrid, AreaChart, Area
@@ -169,6 +169,16 @@ const Dashboard = () => {
     useEffect(() => {
         fetchProjects();
     }, []);
+
+    const handleQuickUpdateStatus = async (projectId, newStatus) => {
+        try {
+            await api.put(`/api/projects/${projectId}`, { status: newStatus });
+            fetchProjects(); // Refresh dashboard
+        } catch (error) {
+            console.error("Error updating project status:", error);
+            alert("Failed to update project status.");
+        }
+    };
 
     // --- Executive Logic & Metrics ---
 
@@ -729,9 +739,24 @@ const Dashboard = () => {
                                             </Link>
                                         </div>
                                         <div className="col-span-2">
-                                            <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded border ${p.status === 'Not Started' ? 'bg-slate-50 text-slate-500 border-slate-200' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
-                                                {p.status}
-                                            </span>
+                                            <div className="flex items-center gap-2">
+                                                <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded border ${p.status === 'Not Started' ? 'bg-slate-50 text-slate-500 border-slate-200' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
+                                                    {p.status}
+                                                </span>
+                                                {p.status === 'Not Started' && (
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleQuickUpdateStatus(p.id, 'In Progress');
+                                                        }}
+                                                        className="p-1 px-1.5 bg-indigo-100 text-indigo-700 rounded hover:bg-indigo-600 hover:text-white transition-all flex items-center gap-1 group/btn"
+                                                        title="Start Project"
+                                                    >
+                                                        <Play size={10} fill="currentColor" />
+                                                        <span className="text-[8px] font-bold uppercase hidden group-hover/btn:inline">Start</span>
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
                                         {/* Team Avatars Column */}
                                         <div className="col-span-3">

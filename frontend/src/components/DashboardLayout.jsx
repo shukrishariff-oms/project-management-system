@@ -156,13 +156,6 @@ const DashboardLayout = ({ children, headerActions }) => {
                                 onClick={() => navigate('/dashboard/financials')}
                             />
 
-                            <SidebarItem
-                                icon={Settings}
-                                label="Settings"
-                                to="/dashboard/settings"
-                                isActive={location.pathname === '/dashboard/settings'}
-                                onClick={() => navigate('/dashboard/settings')}
-                            />
 
                             <SidebarItem
                                 icon={PieChart}
@@ -185,6 +178,15 @@ const DashboardLayout = ({ children, headerActions }) => {
                             )}
                         </>
                     )}
+
+                    <SidebarGroup label="System" />
+                    <SidebarItem
+                        icon={Settings}
+                        label="Settings"
+                        to="/dashboard/settings"
+                        isActive={location.pathname === '/dashboard/settings'}
+                        onClick={() => navigate('/dashboard/settings')}
+                    />
                 </div>
 
                 {/* Footer / User Profile */}

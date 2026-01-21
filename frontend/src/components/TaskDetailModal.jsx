@@ -134,7 +134,7 @@ const TaskDetailModal = ({ isOpen, onClose, task, projectMembers = [], onUpdate 
                             type="text"
                             value={formData.task_name}
                             onChange={(e) => setFormData({ ...formData, task_name: e.target.value })}
-                            className="text-xl font-bold text-slate-800 bg-transparent border-none focus:ring-0 p-0 w-full placeholder:text-slate-400"
+                            className="text-xl font-black text-slate-900 bg-transparent border-none focus:ring-0 p-0 w-full placeholder:text-slate-300"
                             placeholder="Task Name"
                         />
                     </div>
@@ -179,7 +179,7 @@ const TaskDetailModal = ({ isOpen, onClose, task, projectMembers = [], onUpdate 
                                     <textarea
                                         value={formData.description || ''}
                                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                        className="w-full text-sm text-slate-700 border border-slate-200 rounded-lg p-3 min-h-[120px] focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all placeholder:text-slate-300"
+                                        className="w-full text-sm text-slate-900 font-medium border border-slate-200 rounded-lg p-3 min-h-[120px] focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all placeholder:text-slate-300"
                                         placeholder="Add a more detailed description..."
                                     />
                                 </div>
@@ -190,7 +190,7 @@ const TaskDetailModal = ({ isOpen, onClose, task, projectMembers = [], onUpdate 
                                             type="date"
                                             value={formData.start_date || ''}
                                             onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                                            className="w-full text-sm border border-slate-200 rounded-lg p-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                                            className="w-full text-sm text-slate-900 font-medium border border-slate-200 rounded-lg p-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                                         />
                                     </div>
                                     <div>
@@ -199,7 +199,7 @@ const TaskDetailModal = ({ isOpen, onClose, task, projectMembers = [], onUpdate 
                                             type="date"
                                             value={formData.end_date || ''}
                                             onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
-                                            className="w-full text-sm border border-slate-200 rounded-lg p-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                                            className="w-full text-sm text-slate-900 font-medium border border-slate-200 rounded-lg p-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                                         />
                                     </div>
                                 </div>
@@ -214,7 +214,7 @@ const TaskDetailModal = ({ isOpen, onClose, task, projectMembers = [], onUpdate 
                                     <select
                                         value={formData.assigned_to || ''}
                                         onChange={(e) => setFormData({ ...formData, assigned_to: e.target.value })}
-                                        className="w-full text-sm border border-slate-200 rounded-lg p-2 bg-white focus:border-blue-500"
+                                        className="w-full text-sm font-bold text-slate-900 border border-slate-200 rounded-lg p-2 bg-white focus:border-blue-500"
                                     >
                                         <option value="">Unassigned</option>
                                         {projectMembers.map((m, i) => (
@@ -230,7 +230,7 @@ const TaskDetailModal = ({ isOpen, onClose, task, projectMembers = [], onUpdate 
                                     <select
                                         value={formData.status}
                                         onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                                        className="w-full text-sm border border-slate-200 rounded-lg p-2 bg-white focus:border-blue-500"
+                                        className="w-full text-sm font-bold text-slate-900 border border-slate-200 rounded-lg p-2 bg-white focus:border-blue-500"
                                     >
                                         <option value="Not Started">Not Started</option>
                                         <option value="In Progress">In Progress</option>
@@ -283,7 +283,7 @@ const TaskDetailModal = ({ isOpen, onClose, task, projectMembers = [], onUpdate 
                                     value={newSubtaskName}
                                     onChange={(e) => setNewSubtaskName(e.target.value)}
                                     placeholder="Add a subtask..."
-                                    className="flex-1 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-100 focus:border-blue-500"
+                                    className="flex-1 border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-900 font-medium focus:ring-2 focus:ring-blue-100 focus:border-blue-500"
                                 />
                                 <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-medium text-sm flex items-center gap-2">
                                     <Plus size={16} /> Add
@@ -343,7 +343,7 @@ const TaskDetailModal = ({ isOpen, onClose, task, projectMembers = [], onUpdate 
                                         value={newComment}
                                         onChange={(e) => setNewComment(e.target.value)}
                                         placeholder="Write a comment..."
-                                        className="flex-1 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-100 focus:border-blue-500"
+                                        className="flex-1 border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-900 font-medium focus:ring-2 focus:ring-blue-100 focus:border-blue-500"
                                     />
                                     <button type="submit" className="bg-blue-600 text-white p-2.5 rounded-lg hover:bg-blue-700 transition-colors">
                                         <Send size={18} />

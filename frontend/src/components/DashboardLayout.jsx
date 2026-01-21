@@ -179,34 +179,35 @@ const DashboardLayout = ({ children, headerActions }) => {
                         </>
                     )}
 
-                    <SidebarGroup label="System" />
-                    <SidebarItem
-                        icon={Settings}
-                        label="Settings"
-                        to="/dashboard/settings"
-                        isActive={location.pathname === '/dashboard/settings'}
-                        onClick={() => navigate('/dashboard/settings')}
-                    />
                 </div>
 
                 {/* Footer / User Profile */}
                 <div className="p-4 border-t border-white/5 bg-white/5">
-                    <div className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 cursor-pointer transition-all group relative border border-transparent hover:border-white/5">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-blue-400 flex items-center justify-center text-xs font-black text-white shadow-lg border border-white/20">
+                    <div className="flex items-center gap-2 p-2 rounded-xl transition-all group relative border border-transparent">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-blue-400 flex items-center justify-center text-xs font-black text-white shadow-lg border border-white/20 shrink-0">
                             {(localStorage.getItem('user_name') || 'US').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
                         </div>
                         <div className="flex-1 overflow-hidden">
                             <div className="text-sm font-bold text-white truncate">
                                 {localStorage.getItem('user_name') || 'User'}
                             </div>
-                            <div className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider truncate group-hover:text-primary transition-colors">
+                            <div className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider truncate">
                                 {localStorage.getItem('user_role') === 'admin' ? 'Administrator' : 'Team Member'}
                             </div>
                         </div>
 
+                        {/* Settings Button */}
+                        <button
+                            onClick={() => navigate('/dashboard/settings')}
+                            className={`p-2 rounded-lg transition-all shadow-sm ${location.pathname === '/dashboard/settings' ? 'bg-primary text-white' : 'bg-white/10 text-muted-foreground hover:text-white hover:bg-white/20'}`}
+                            title="Settings"
+                        >
+                            <Settings size={16} />
+                        </button>
+
                         {/* Logout Button */}
                         <button
-                            onClick={(e) => { e.stopPropagation(); handleLogout(); }}
+                            onClick={handleLogout}
                             className="bg-white/10 p-2 rounded-lg text-muted-foreground hover:text-destructive-foreground hover:bg-destructive/80 transition-all shadow-sm"
                             title="Logout"
                         >

@@ -1677,7 +1677,7 @@ const ProjectDetails = () => {
                                         type="text"
                                         value={taskForm.task_name}
                                         onChange={(e) => setTaskForm({ ...taskForm, task_name: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-900 font-bold focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                                         required
                                     />
                                 </div>
@@ -1696,7 +1696,7 @@ const ProjectDetails = () => {
                                                 }
                                                 setTaskForm({ ...taskForm, start_date: newStartDate, end_date: newEndDate });
                                             }}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-900 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                                         />
                                     </div>
                                     <div>
@@ -1706,7 +1706,7 @@ const ProjectDetails = () => {
                                             value={taskForm.end_date}
                                             min={taskForm.start_date} // Validation: Cannot be earlier than Start Date
                                             onChange={(e) => setTaskForm({ ...taskForm, end_date: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-900 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                                         />
                                     </div>
                                 </div>
@@ -1728,7 +1728,7 @@ const ProjectDetails = () => {
                                                         : taskForm.completion_date
                                                 });
                                             }}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-900 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                                         >
                                             <option value="Not Started">Not Started</option>
                                             <option value="In Progress">In Progress</option>
@@ -1743,7 +1743,7 @@ const ProjectDetails = () => {
                                                 type="date"
                                                 value={taskForm.completion_date}
                                                 onChange={(e) => setTaskForm({ ...taskForm, completion_date: e.target.value })}
-                                                className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                                className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-900 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                                                 required
                                             />
                                         </div>
@@ -1758,7 +1758,7 @@ const ProjectDetails = () => {
                                     <select
                                         value={taskForm.parent_id || ''}
                                         onChange={(e) => setTaskForm({ ...taskForm, parent_id: e.target.value ? parseInt(e.target.value) : null })}
-                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
+                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-900 font-bold focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
                                     >
                                         <option value="">None (Primary Task)</option>
                                         {project?.tasks?.filter(t => !editingTask || t.id !== editingTask.id).map(t => (

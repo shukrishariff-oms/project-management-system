@@ -544,11 +544,11 @@ def get_payment_template():
     ws.title = "Payment Schedule Template"
     
     # Define headers
-    headers = ["Deliverable", "Phase", "Plan Date (YYYY-MM-DD)", "Planned Amount", "Remarks"]
+    headers = ["Deliverable", "Phase", "Plan Date (YYYY-MM-DD)", "Planned Amount", "Category", "Remarks"]
     ws.append(headers)
     
     # Add sample row
-    ws.append(["Milestone 1", "Phase 1", "2026-01-31", 5000.00, "Initial payment"])
+    ws.append(["Milestone 1", "Phase 1", "2026-01-31", 5000.00, "Project Implementation", "Initial payment"])
     
     # Save to temp file
     with tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx") as tmp:

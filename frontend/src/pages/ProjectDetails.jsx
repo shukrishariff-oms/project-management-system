@@ -190,12 +190,12 @@ const ProjectDetails = () => {
 
             for (const item of data) {
                 const newPayment = {
-                    deliverable: item['Payment Item/Deliverable'] || item['Deliverable'] || 'New Deliverable',
+                    deliverable: item['Deliverable'] || 'New Deliverable',
                     phase: item['Phase'] || 'TBD',
                     planned_amount: parseFloat(item['Planned Amount']) || 0,
                     plan_date: item['Plan Date (YYYY-MM-DD)'] || new Date().toISOString().split('T')[0],
                     category: item['Category'] || 'Project Implementation',
-                    remark: item['Remarks'] || item['Remark'] || '',
+                    remark: item['Remarks'] || '',
                     po_number: '',
                     invoice_number: '',
                     status: 'Not Paid',

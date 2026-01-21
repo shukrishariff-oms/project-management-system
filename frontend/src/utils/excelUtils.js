@@ -18,7 +18,7 @@ export const downloadTaskTemplate = () => {
  */
 export const downloadPaymentTemplate = () => {
     const headers = [
-        ['Payment Item/Deliverable', 'Phase', 'Planned Amount', 'Plan Date (YYYY-MM-DD)', 'Category']
+        ['Deliverable', 'Phase', 'Plan Date (YYYY-MM-DD)', 'Planned Amount', 'Category', 'Remarks']
     ];
     const ws = XLSX.utils.aoa_to_sheet(headers);
     const wb = XLSX.utils.book_new();

@@ -23,10 +23,21 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
     const [staffList, setStaffList] = useState([]);
 
     useEffect(() => {
-        const savedStaff = localStorage.getItem('dept_staff_list');
-        if (savedStaff) {
-            setStaffList(JSON.parse(savedStaff));
-        }
+        const fetchStaff = async () => {
+            try {
+                const response = await api.get('/api/users');
+                if (response.data) {
+                    setStaffList(response.data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch staff via API", error);
+                const savedStaff = localStorage.getItem('dept_staff_list');
+                if (savedStaff) {
+                    setStaffList(JSON.parse(savedStaff));
+                }
+            }
+        };
+        fetchStaff();
     }, []);
 
     // Pre-fill form when editing
@@ -36,6 +47,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                 name: projectData.name || '',
                 project_code: projectData.project_code || '',
                 project_manager: projectData.project_manager || '',
+                assigned_to_email: projectData.assigned_to_email || '',
                 start_date: projectData.start_date || '',
                 end_date: projectData.end_date || '',
                 planned_cost: projectData.planned_cost?.toString() || '',
@@ -54,6 +66,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                 name: '',
                 project_code: '',
                 project_manager: '',
+                assigned_to_email: '',
                 start_date: '',
                 end_date: '',
                 planned_cost: '',
@@ -259,6 +272,35 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             <option value="Delayed">Delayed</option>
                             <option value="Completed">Completed</option>
                         </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Project Lead / Assigned To
+                        </label>
+                        <select
+                            name="assigned_to"
+                            value={formData.assigned_to_email || ''}
+                            onChange={(e) => {
+                                const selectedUser = staffList.find(u => u.email === e.target.value);
+                                setFormData({
+                                    ...formData,
+                                    assigned_to_email: e.target.value,
+                                    project_manager: selectedUser ? selectedUser.full_name : ''
+                                });
+                            }}
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                        >
+                            <option value="">-- Assign to Team Member --</option>
+                            {staffList.map(user => (
+                                <option key={user.id} value={user.email}>
+                                    {user.full_name} {user.role === 'admin' ? '(Admin)' : ''}
+                                </option>
+                            ))}
+                        </select>
+                        <p className="text-xs text-slate-500 mt-1">
+                            Use this field to assign the project. It will appear in the staff's "My Work" portal.
+                        </p>
                     </div>
 
                     {/* DISABLED: Backend Schema Rollback

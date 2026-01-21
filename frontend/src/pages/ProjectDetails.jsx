@@ -154,12 +154,22 @@ const ProjectDetails = () => {
             const data = await parseExcelFile(file);
             console.log("Importing tasks:", data);
 
+            // Helper to safely parse dates from Excel (Handles Date obj, string keys, etc)
+            const parseImportDate = (val) => {
+                if (!val) return new Date().toISOString().split('T')[0]; // Default to today
+                if (val instanceof Date) return val.toISOString().split('T')[0];
+                // Try string parsing
+                const d = new Date(val);
+                if (!isNaN(d.getTime())) return d.toISOString().split('T')[0];
+                return new Date().toISOString().split('T')[0]; // Fallback
+            };
+
             // Loop and create tasks
             for (const item of data) {
                 const newTask = {
                     task_name: item['Task Name'] || 'Untitled Task',
-                    start_date: item['Start Date (YYYY-MM-DD)'] || new Date().toISOString().split('T')[0],
-                    end_date: item['End Date (YYYY-MM-DD)'] || new Date().toISOString().split('T')[0],
+                    start_date: parseImportDate(item['Start Date (YYYY-MM-DD)']),
+                    end_date: parseImportDate(item['End Date (YYYY-MM-DD)']),
                     status: item['Status'] || 'Not Started',
                     completion_percentage: item['Completion %'] || 0,
                     assigned_to: item['Assigned To'] || '',
@@ -188,12 +198,22 @@ const ProjectDetails = () => {
             const data = await parseExcelFile(file);
             console.log("Importing payments:", data);
 
+            // Helper to safely parse dates from Excel (Handles Date obj, string keys, etc)
+            const parseImportDate = (val) => {
+                if (!val) return new Date().toISOString().split('T')[0]; // Default to today
+                if (val instanceof Date) return val.toISOString().split('T')[0];
+                // Try string parsing
+                const d = new Date(val);
+                if (!isNaN(d.getTime())) return d.toISOString().split('T')[0];
+                return new Date().toISOString().split('T')[0]; // Fallback
+            };
+
             for (const item of data) {
                 const newPayment = {
                     deliverable: item['Deliverable'] || 'Pending Item',
                     phase: item['Phase'] || 'TBD',
                     planned_amount: item['Planned Amount'] ? parseFloat(item['Planned Amount']) : 0,
-                    plan_date: item['Plan Date (YYYY-MM-DD)'] || new Date().toISOString().split('T')[0],
+                    plan_date: parseImportDate(item['Plan Date (YYYY-MM-DD)']),
                     category: item['Category'] || 'Project Implementation',
                     remark: item['Remarks'] || '',
                     po_number: '',

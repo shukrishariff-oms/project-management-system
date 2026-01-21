@@ -175,13 +175,6 @@ const DashboardLayout = ({ children, headerActions }) => {
                             {isProjectsOpen && (
                                 <div className="pl-4 space-y-1 mb-2 animate-in slide-in-from-left-2 duration-300">
                                     <SidebarItem
-                                        icon={LayoutGrid}
-                                        label="Overview"
-                                        to="/dashboard/departments"
-                                        isActive={location.pathname === '/dashboard/departments'}
-                                        onClick={() => navigate('/dashboard/departments', { state: { reset: Date.now() } })}
-                                    />
-                                    <SidebarItem
                                         icon={Users}
                                         label="Resources"
                                         to="/dashboard/resources"

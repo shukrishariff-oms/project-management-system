@@ -1056,10 +1056,12 @@ const ProjectDetails = () => {
                                                                     </td>
                                                                     <td className="px-4 py-2 text-slate-800 font-mono text-xs text-right font-medium whitespace-nowrap">{formatCurrency(payment.planned_amount)}</td>
                                                                     <td className="px-4 py-2 text-center">
-                                                                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide ${payment.status === 'Paid' ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' :
-                                                                            isOverdue ? 'bg-red-100 text-red-700 border border-red-200 shadow-sm' :
-                                                                                'bg-slate-100 text-slate-600 border border-slate-200'
-                                                                            }`}>
+                                                                        <span
+                                                                            onClick={(e) => { e.stopPropagation(); handleEditPayment(payment); }}
+                                                                            className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide cursor-pointer hover:brightness-95 transition-all ${payment.status === 'Paid' ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' :
+                                                                                isOverdue ? 'bg-red-100 text-red-700 border border-red-200 shadow-sm' :
+                                                                                    'bg-slate-100 text-slate-600 border border-slate-200'
+                                                                                }`}>
                                                                             {payment.status === 'Paid' && <CheckCircle size={10} className="mr-1" />}
                                                                             {payment.status === 'Paid' ? 'Paid' : isOverdue ? 'NOT PAID' : payment.status}
                                                                         </span>

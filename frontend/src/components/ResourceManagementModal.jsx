@@ -97,7 +97,7 @@ const ResourceManagementModal = ({ isOpen, onClose, staffList, setStaffList, pro
                                     <div className="col-span-2">
                                         <label className="block text-xs font-bold text-slate-500 mb-1">Name</label>
                                         <input
-                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 outline-none"
+                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 outline-none text-slate-900 font-bold"
                                             placeholder="Full Name"
                                             value={newStaff.name}
                                             onChange={e => setNewStaff({ ...newStaff, name: e.target.value })}
@@ -106,7 +106,7 @@ const ResourceManagementModal = ({ isOpen, onClose, staffList, setStaffList, pro
                                     <div className="col-span-1">
                                         <label className="block text-xs font-bold text-slate-500 mb-1">Position</label>
                                         <input
-                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none"
+                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none text-slate-900 font-medium"
                                             placeholder="Role / Position"
                                             value={newStaff.role}
                                             onChange={e => setNewStaff({ ...newStaff, role: e.target.value })}
@@ -115,7 +115,7 @@ const ResourceManagementModal = ({ isOpen, onClose, staffList, setStaffList, pro
                                     <div className="col-span-1">
                                         <label className="block text-xs font-bold text-slate-500 mb-1">Grade</label>
                                         <input
-                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none"
+                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none text-slate-900 font-medium"
                                             placeholder="e.g. CS9-2"
                                             value={newStaff.grade}
                                             onChange={e => setNewStaff({ ...newStaff, grade: e.target.value })}
@@ -124,7 +124,7 @@ const ResourceManagementModal = ({ isOpen, onClose, staffList, setStaffList, pro
                                     <div className="col-span-1">
                                         <label className="block text-xs font-bold text-slate-500 mb-1">Email</label>
                                         <input
-                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none"
+                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none text-slate-900 font-medium"
                                             placeholder="email@ijn.com.my"
                                             value={newStaff.email}
                                             onChange={e => setNewStaff({ ...newStaff, email: e.target.value })}
@@ -133,7 +133,7 @@ const ResourceManagementModal = ({ isOpen, onClose, staffList, setStaffList, pro
                                     <div className="col-span-1">
                                         <label className="block text-xs font-bold text-slate-500 mb-1">Mobile</label>
                                         <input
-                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none"
+                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none text-slate-900 font-medium"
                                             placeholder="Mobile"
                                             value={newStaff.mobile}
                                             onChange={e => setNewStaff({ ...newStaff, mobile: e.target.value })}
@@ -142,7 +142,7 @@ const ResourceManagementModal = ({ isOpen, onClose, staffList, setStaffList, pro
                                     <div className="col-span-1">
                                         <label className="block text-xs font-bold text-slate-500 mb-1">Staff No</label>
                                         <input
-                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none"
+                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none text-slate-900 font-medium"
                                             placeholder="####"
                                             value={newStaff.staffNo}
                                             onChange={e => setNewStaff({ ...newStaff, staffNo: e.target.value })}
@@ -151,7 +151,7 @@ const ResourceManagementModal = ({ isOpen, onClose, staffList, setStaffList, pro
                                     <div className="col-span-1">
                                         <label className="block text-xs font-bold text-slate-500 mb-1">Extension</label>
                                         <input
-                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none"
+                                            className="w-full text-sm border rounded-lg p-2 focus:ring-2 focus:ring-indigo-200 outline-none text-slate-900 font-medium"
                                             placeholder="Ext"
                                             value={newStaff.ext}
                                             onChange={e => setNewStaff({ ...newStaff, ext: e.target.value })}

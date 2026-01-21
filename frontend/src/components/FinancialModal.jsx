@@ -90,7 +90,7 @@ const FinancialModal = ({ isOpen, onClose, formatCurrency }) => {
                                             {isEditing ? (
                                                 <div className="space-y-1">
                                                     <input type="text" value={row.cat} onChange={(e) => handleUpdate(row.id, 'cat', e.target.value)} className="w-full text-xs font-bold text-slate-900 border rounded p-1" />
-                                                    <input type="text" value={row.name} onChange={(e) => handleUpdate(row.id, 'name', e.target.value)} className="w-full text-[10px] text-slate-900 border rounded p-1" />
+                                                    <input type="text" value={row.name} onChange={(e) => handleUpdate(row.id, 'name', e.target.value)} className="w-full text-[10px] text-slate-900 border rounded p-1 font-medium" />
                                                 </div>
                                             ) : (
                                                 <>
@@ -100,19 +100,19 @@ const FinancialModal = ({ isOpen, onClose, formatCurrency }) => {
                                             )}
                                         </td>
                                         <td className="px-4 py-3 text-right font-mono text-slate-600 border-l border-dashed border-slate-100 bg-slate-50/50">
-                                            {isEditing ? <input type="number" value={row.plan} onChange={(e) => handleUpdate(row.id, 'plan', e.target.value)} className="w-20 text-right text-slate-900 border rounded p-1" /> : formatCurrency(row.plan)}
+                                            {isEditing ? <input type="number" value={row.plan} onChange={(e) => handleUpdate(row.id, 'plan', e.target.value)} className="w-20 text-right text-slate-900 border rounded p-1 font-bold" /> : formatCurrency(row.plan)}
                                         </td>
                                         <td className="px-4 py-3 text-right font-mono text-slate-800 font-bold bg-[#fffdf5]">
-                                            {isEditing ? <input type="number" value={row.approve} onChange={(e) => handleUpdate(row.id, 'approve', e.target.value)} className="w-20 text-right text-slate-900 border rounded p-1" /> : formatCurrency(row.approve)}
+                                            {isEditing ? <input type="number" value={row.approve} onChange={(e) => handleUpdate(row.id, 'approve', e.target.value)} className="w-20 text-right text-slate-900 border rounded p-1 font-bold" /> : formatCurrency(row.approve)}
                                         </td>
                                         <td className="px-4 py-3 text-right font-mono text-slate-600 bg-yellow-50">
-                                            {isEditing ? <input type="number" value={row.actual} onChange={(e) => handleUpdate(row.id, 'actual', e.target.value)} className="w-20 text-right text-slate-900 border rounded p-1 bg-yellow-50" /> : (row.actual > 0 ? formatCurrency(row.actual) : '-')}
+                                            {isEditing ? <input type="number" value={row.actual} onChange={(e) => handleUpdate(row.id, 'actual', e.target.value)} className="w-20 text-right text-slate-900 border rounded p-1 bg-yellow-50 font-bold" /> : (row.actual > 0 ? formatCurrency(row.actual) : '-')}
                                         </td>
                                         <td className="px-4 py-3 text-right font-mono font-bold text-emerald-700 bg-emerald-50/30 border-l border-emerald-100">
                                             {formatCurrency(row.approve - row.actual)}
                                         </td>
                                         <td className="px-4 py-3 text-right">
-                                            {isEditing ? <input type="text" value={row.status} onChange={(e) => handleUpdate(row.id, 'status', e.target.value)} className="w-full text-xs text-slate-900 border rounded p-1" /> : (
+                                            {isEditing ? <input type="text" value={row.status} onChange={(e) => handleUpdate(row.id, 'status', e.target.value)} className="w-full text-xs text-slate-900 border rounded p-1 font-medium" /> : (
                                                 <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded inline-block whitespace-nowrap">
                                                     {row.status}
                                                 </span>

@@ -190,11 +190,12 @@ const ProjectDetails = () => {
 
             for (const item of data) {
                 const newPayment = {
-                    deliverable: item['Payment Item/Deliverable'] || 'New Deliverable',
+                    deliverable: item['Payment Item/Deliverable'] || item['Deliverable'] || 'New Deliverable',
                     phase: item['Phase'] || 'TBD',
                     planned_amount: parseFloat(item['Planned Amount']) || 0,
                     plan_date: item['Plan Date (YYYY-MM-DD)'] || new Date().toISOString().split('T')[0],
-                    category: item['Category'] || 'Other',
+                    category: item['Category'] || 'Project Implementation',
+                    remark: item['Remarks'] || item['Remark'] || '',
                     po_number: '',
                     invoice_number: '',
                     status: 'Not Paid',
@@ -203,7 +204,7 @@ const ProjectDetails = () => {
                     supporting_document: ''
                 };
 
-                await api.post(`/api/projects/${id}/payments`, newPayment);
+                await api.post(`/api/projects/${id}/payment`, newPayment);
             }
 
             fetchProjectDetails();

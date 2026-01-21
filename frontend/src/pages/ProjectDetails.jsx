@@ -171,14 +171,14 @@ const ProjectDetails = () => {
                     start_date: parseImportDate(item['Start Date (YYYY-MM-DD)']),
                     end_date: parseImportDate(item['End Date (YYYY-MM-DD)']),
                     status: item['Status'] || 'Not Started',
-                    completion_percentage: item['Completion %'] || 0,
+                    completion_percentage: item['Completion %'] ? parseInt(item['Completion %']) : 0,
                     assigned_to: item['Assigned To'] || '',
                     duration: '',
                     completion_date: null,
                     parent_id: null
                 };
 
-                await api.post(`/api/projects/${id}/tasks`, newTask);
+                await api.post(`/api/projects/${id}/task`, newTask);
             }
 
             fetchProjectDetails();

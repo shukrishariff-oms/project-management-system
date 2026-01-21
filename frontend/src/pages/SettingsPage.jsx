@@ -331,7 +331,7 @@ const SystemInfo = () => (
             </div>
             <div className="grid grid-cols-3 gap-4">
                 <span className="text-sm font-bold text-slate-500">Developer</span>
-                <span className="col-span-2 text-sm font-medium text-slate-800">AI Assistant (Antigravity)</span>
+                <span className="col-span-2 text-sm font-medium text-slate-800">Shukri Shariff</span>
             </div>
         </div>
         <div className="mt-6 p-4 bg-white border border-slate-100 rounded-lg shadow-sm">

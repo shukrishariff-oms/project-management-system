@@ -59,12 +59,20 @@ const MyWorkPage = () => {
         const total = myProjects.reduce((sum, p) => sum + (p.progress_percentage || 0), 0);
         const avg = Math.round(total / myProjects.length);
 
-        // Mock task counts for now unless we have a task relationship
-        // But let's make them look logical based on projects
+        // Real task counts
+        let done = 0;
+        let pending = 0;
+        myProjects.forEach(p => {
+            if (p.tasks) {
+                done += p.tasks.filter(t => t.status === 'Completed').length;
+                pending += p.tasks.filter(t => t.status !== 'Completed').length;
+            }
+        });
+
         return {
             avgProgress: avg,
-            done: myProjects.length * 4, // Dynamic mock
-            pending: myProjects.length * 2 // Dynamic mock
+            done,
+            pending
         };
     }, [myProjects]);
 
@@ -148,7 +156,9 @@ const MyWorkPage = () => {
                             ) : myProjects.length === 0 ? (
                                 <div className="col-span-2 bg-slate-50/50 rounded-[2rem] p-12 text-center border-2 border-dashed border-slate-200">
                                     <Briefcase size={48} className="mx-auto text-slate-300 mb-4" />
-                                    <p className="text-slate-500 font-medium">No active project assignments found.</p>
+                                    <p className="text-slate-500 font-medium max-w-md mx-auto">
+                                        No active project assignments found for <span className="font-bold text-slate-700">{currentUser.email}</span>.
+                                    </p>
                                 </div>
                             ) : (
                                 myProjects.map(project => (
@@ -217,26 +227,71 @@ const MyWorkPage = () => {
                         </h2>
 
                         <div className="bg-slate-50 rounded-[2rem] p-6 border border-slate-200/50 space-y-4">
-                            {[
-                                { id: 1, title: 'Upload Stage 1 Report', due: 'Today', priority: 'High', project: 'CMS Implementation', color: 'red' },
-                                { id: 2, title: 'Verify budget variance', due: 'Tomorrow', priority: 'Med', project: 'HR Portal Upgrade', color: 'amber' },
-                                { id: 3, title: 'Update timesheets', due: 'Fri, 17 Jan', priority: 'Low', project: 'Internal', color: 'emerald' }
-                            ].map(task => (
-                                <div key={task.id} className="bg-white p-5 rounded-2xl border border-white shadow-sm hover:shadow-xl transition-all duration-300 flex items-start gap-4">
-                                    <div className={`mt-1.5 w-3 h-3 rounded-full shrink-0 ring-4 ring-${task.color}-50 bg-${task.color}-500 shadow-[0_0_10px_rgba(var(--${task.color}-500),0.4)]`}></div>
-                                    <div className="flex-1">
-                                        <div className="text-sm font-black text-slate-800 mb-1">{task.title}</div>
-                                        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400">
-                                            <span className="px-1.5 py-0.5 bg-slate-100 rounded uppercase">{task.project}</span>
-                                            <span>•</span>
-                                            <span className="text-indigo-500">Due {task.due}</span>
+                            {(() => {
+                                // Aggregate all unfinished tasks from all projects
+                                const allTasks = myProjects.flatMap(p =>
+                                    (p.tasks || []).filter(t => t.status !== 'Completed').map(t => ({
+                                        ...t,
+                                        projectName: p.name,
+                                        projectCode: p.project_code
+                                    }))
+                                );
+
+                                // Sort by due date (ascending)
+                                allTasks.sort((a, b) => new Date(a.end_date) - new Date(b.end_date));
+
+                                // Take top 5
+                                const priorityTasks = allTasks.slice(0, 5);
+
+                                if (priorityTasks.length === 0) {
+                                    return (
+                                        <div className="text-center py-8 text-slate-400">
+                                            <CheckCircle size={32} className="mx-auto mb-2 opacity-50" />
+                                            <p className="text-sm font-medium">No pending tasks.</p>
                                         </div>
-                                    </div>
-                                    <button className="text-slate-300 hover:text-indigo-600 transition-colors">
-                                        <ArrowRight size={18} />
-                                    </button>
-                                </div>
-                            ))}
+                                    );
+                                }
+
+                                return priorityTasks.map(task => {
+                                    const today = new Date();
+                                    const dueDate = new Date(task.end_date);
+                                    const diffDays = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+
+                                    let priority = 'Low';
+                                    let color = 'emerald';
+                                    let dueText = `Due ${dueDate.toLocaleDateString('en-MY', { day: 'numeric', month: 'short' })}`;
+
+                                    if (diffDays < 0) {
+                                        priority = 'Overdue';
+                                        color = 'red';
+                                        dueText = `Overdue ${Math.abs(diffDays)} days`;
+                                    } else if (diffDays <= 1) {
+                                        priority = 'High';
+                                        color = 'rose';
+                                        dueText = diffDays === 0 ? 'Due Today' : 'Due Tomorrow';
+                                    } else if (diffDays <= 7) {
+                                        priority = 'Med';
+                                        color = 'amber';
+                                    }
+
+                                    return (
+                                        <div key={task.id} className="bg-white p-5 rounded-2xl border border-white shadow-sm hover:shadow-xl transition-all duration-300 flex items-start gap-4">
+                                            <div className={`mt-1.5 w-3 h-3 rounded-full shrink-0 ring-4 ring-${color}-50 bg-${color}-500 shadow-[0_0_10px_rgba(var(--${color}-500),0.4)]`}></div>
+                                            <div className="flex-1">
+                                                <div className="text-sm font-black text-slate-800 mb-1 line-clamp-1" title={task.task_name}>{task.task_name}</div>
+                                                <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400">
+                                                    <span className="px-1.5 py-0.5 bg-slate-100 rounded uppercase truncate max-w-[100px]" title={task.projectName}>{task.projectCode || task.projectName}</span>
+                                                    <span>•</span>
+                                                    <span className={`text-${color}-500`}>{dueText}</span>
+                                                </div>
+                                            </div>
+                                            {/* <button className="text-slate-300 hover:text-indigo-600 transition-colors">
+                                                <ArrowRight size={18} />
+                                            </button> */}
+                                        </div>
+                                    );
+                                });
+                            })()}
                         </div>
 
                         {/* Infographic Tips Card */}

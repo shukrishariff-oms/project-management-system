@@ -157,7 +157,7 @@ const ProjectDetails = () => {
             // Loop and create tasks
             for (const item of data) {
                 const newTask = {
-                    task_name: item['Task Name'] || 'New Task',
+                    task_name: item['Task Name'] || 'Untitled Task',
                     start_date: item['Start Date (YYYY-MM-DD)'] || new Date().toISOString().split('T')[0],
                     end_date: item['End Date (YYYY-MM-DD)'] || new Date().toISOString().split('T')[0],
                     status: item['Status'] || 'Not Started',
@@ -190,9 +190,9 @@ const ProjectDetails = () => {
 
             for (const item of data) {
                 const newPayment = {
-                    deliverable: item['Deliverable'] || 'New Deliverable',
+                    deliverable: item['Deliverable'] || 'Pending Item',
                     phase: item['Phase'] || 'TBD',
-                    planned_amount: parseFloat(item['Planned Amount']) || 0,
+                    planned_amount: item['Planned Amount'] ? parseFloat(item['Planned Amount']) : 0,
                     plan_date: item['Plan Date (YYYY-MM-DD)'] || new Date().toISOString().split('T')[0],
                     category: item['Category'] || 'Project Implementation',
                     remark: item['Remarks'] || '',

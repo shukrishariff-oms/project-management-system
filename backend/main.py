@@ -127,7 +127,35 @@ def update_password(
     
     current_user.password_hash = get_password_hash(pass_update.new_password)
     db.commit()
+    db.commit()
     return {"message": "Password updated successfully"}
+
+@app.put("/api/users/{user_id}", response_model=schemas.User)
+def update_user(user_id: int, user_update: schemas.UserUpdate, db: Session = Depends(database.get_db)):
+    """Update user details"""
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if user_update.email:
+        # Check uniqueness if email is changed
+        existing_user = db.query(models.User).filter(models.User.email == user_update.email).first()
+        if existing_user and existing_user.id != user_id:
+             raise HTTPException(status_code=400, detail="Email already registered")
+        db_user.email = user_update.email
+        
+    if user_update.full_name:
+        db_user.full_name = user_update.full_name
+        
+    if user_update.role:
+        db_user.role = user_update.role
+        
+    if user_update.password:
+        db_user.password_hash = get_password_hash(user_update.password)
+        
+    db.commit()
+    db.refresh(db_user)
+    return db_user
 
 @app.delete("/api/users/{user_id}")
 def delete_user(user_id: int, db: Session = Depends(database.get_db)):

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import DashboardLayout from '../components/DashboardLayout';
-import { User, Shield, Key, Save, Trash2, Plus, AlertCircle, CheckCircle } from 'lucide-react';
+import { User, Shield, Key, Save, Trash2, Plus, AlertCircle, CheckCircle, Pencil } from 'lucide-react';
 
 const SettingsPage = () => {
     const [activeTab, setActiveTab] = useState('profile');
@@ -167,6 +167,7 @@ const UserManagement = ({ currentUserEmail }) => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
+    const [editingUser, setEditingUser] = useState(null);
 
     // Form for new user
     const [newUser, setNewUser] = useState({
@@ -204,18 +205,45 @@ const UserManagement = ({ currentUserEmail }) => {
         }
     };
 
-    const handleCreateUser = async (e) => {
+    const handleSaveUser = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/users', newUser);
+            if (editingUser) {
+                // Update
+                const payload = { ...newUser };
+                if (!payload.password) delete payload.password; // Don't send empty password
+                await api.put(`/api/users/${editingUser.id}`, payload);
+                alert('User updated successfully.');
+            } else {
+                // Create
+                await api.post('/users', newUser);
+                alert('User created successfully.');
+            }
             setShowAddModal(false);
+            setEditingUser(null);
             setNewUser({ email: '', full_name: '', password: '', role: 'staff' });
             fetchUsers();
-            alert('User created successfully.');
         } catch (error) {
-            console.error('Create failed:', error);
-            alert(error.response?.data?.detail || 'Failed to create user');
+            console.error('Save failed:', error);
+            alert(error.response?.data?.detail || 'Failed to save user');
         }
+    };
+
+    const openEditModal = (user) => {
+        setEditingUser(user);
+        setNewUser({
+            email: user.email,
+            full_name: user.full_name,
+            password: '', // Leave blank to keep existing
+            role: user.role
+        });
+        setShowAddModal(true);
+    };
+
+    const openAddModal = () => {
+        setEditingUser(null);
+        setNewUser({ email: '', full_name: '', password: '', role: 'staff' });
+        setShowAddModal(true);
     };
 
     return (
@@ -226,7 +254,7 @@ const UserManagement = ({ currentUserEmail }) => {
                     <p className="text-sm text-slate-500">Manage system access and roles.</p>
                 </div>
                 <button
-                    onClick={() => setShowAddModal(true)}
+                    onClick={openAddModal}
                     className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-sm"
                 >
                     <Plus size={16} />
@@ -259,6 +287,13 @@ const UserManagement = ({ currentUserEmail }) => {
                                     </td>
                                     <td className="px-6 py-3 text-right">
                                         <button
+                                            onClick={() => openEditModal(u)}
+                                            className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors mr-1"
+                                            title="Edit User"
+                                        >
+                                            <Pencil size={16} />
+                                        </button>
+                                        <button
                                             onClick={() => handleDelete(u.id, u.email)}
                                             className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
                                             title="Delete User"
@@ -277,8 +312,8 @@ const UserManagement = ({ currentUserEmail }) => {
             {showAddModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowAddModal(false)}>
                     <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-6" onClick={e => e.stopPropagation()}>
-                        <h3 className="text-lg font-bold text-slate-800 mb-4">Add New User</h3>
-                        <form onSubmit={handleCreateUser} className="space-y-4">
+                        <h3 className="text-lg font-bold text-slate-800 mb-4">{editingUser ? 'Edit User' : 'Add New User'}</h3>
+                        <form onSubmit={handleSaveUser} className="space-y-4">
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Full Name</label>
                                 <input type="text" required value={newUser.full_name} onChange={e => setNewUser({ ...newUser, full_name: e.target.value })} className="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 font-medium" />
@@ -288,8 +323,8 @@ const UserManagement = ({ currentUserEmail }) => {
                                 <input type="email" required value={newUser.email} onChange={e => setNewUser({ ...newUser, email: e.target.value })} className="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 font-medium" />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Password</label>
-                                <input type="password" required value={newUser.password} onChange={e => setNewUser({ ...newUser, password: e.target.value })} className="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 font-medium" />
+                                <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Password {editingUser && '(Leave blank to keep same)'}</label>
+                                <input type="password" required={!editingUser} value={newUser.password} onChange={e => setNewUser({ ...newUser, password: e.target.value })} className="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 font-medium" />
                             </div>
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Role</label>
@@ -300,7 +335,7 @@ const UserManagement = ({ currentUserEmail }) => {
                             </div>
                             <div className="flex gap-2 pt-2">
                                 <button type="button" onClick={() => setShowAddModal(false)} className="flex-1 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 font-bold text-sm">Cancel</button>
-                                <button type="submit" className="flex-1 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-bold text-sm">Create User</button>
+                                <button type="submit" className="flex-1 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-bold text-sm">{editingUser ? 'Update User' : 'Create User'}</button>
                             </div>
                         </form>
                     </div>

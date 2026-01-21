@@ -233,7 +233,7 @@ const ResourceManagementPage = () => {
                             <div className="relative flex-1 max-w-sm ml-2">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                                 <input
-                                    className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-slate-700 focus:ring-1 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all placeholder:text-gray-400"
+                                    className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-slate-900 font-medium focus:ring-1 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all placeholder:text-gray-400"
                                     placeholder="Filter resources..."
                                     value={searchTerm}
                                     onChange={e => setSearchTerm(e.target.value)}
@@ -501,19 +501,19 @@ const StaffForm = ({ initialData, onSave, onDelete, projects, isEditing }) => {
             <div className="space-y-3">
                 <div>
                     <label className="text-xs font-bold text-slate-500 uppercase">Full Name</label>
-                    <input className="w-full border-b border-slate-200 py-2 text-sm font-bold text-slate-800 focus:outline-none focus:border-indigo-500"
+                    <input className="w-full border-b border-slate-200 py-2 text-sm font-bold text-slate-900 focus:outline-none focus:border-indigo-500"
                         value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} placeholder="Staff Name" autoFocus />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="text-xs font-bold text-slate-500 uppercase">Role</label>
-                        <input className="w-full border-b border-slate-200 py-2 text-sm text-slate-700 focus:outline-none focus:border-indigo-500"
+                        <input className="w-full border-b border-slate-200 py-2 text-sm font-medium text-slate-900 focus:outline-none focus:border-indigo-500"
                             value={formData.role} onChange={e => setFormData({ ...formData, role: e.target.value })} placeholder="Position" />
                     </div>
                     <div>
                         <label className="text-xs font-bold text-slate-500 uppercase">Grade</label>
-                        <input className="w-full border-b border-slate-200 py-2 text-sm text-slate-700 focus:outline-none focus:border-indigo-500"
+                        <input className="w-full border-b border-slate-200 py-2 text-sm font-medium text-slate-900 focus:outline-none focus:border-indigo-500"
                             value={formData.grade} onChange={e => setFormData({ ...formData, grade: e.target.value })} placeholder="e.g. CS9" />
                     </div>
                 </div>
@@ -521,12 +521,12 @@ const StaffForm = ({ initialData, onSave, onDelete, projects, isEditing }) => {
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="text-xs font-bold text-slate-500 uppercase">Staff No</label>
-                        <input className="w-full border-b border-slate-200 py-2 text-sm text-slate-700 focus:outline-none focus:border-indigo-500"
+                        <input className="w-full border-b border-slate-200 py-2 text-sm font-medium text-slate-900 focus:outline-none focus:border-indigo-500"
                             value={formData.staffNo} onChange={e => setFormData({ ...formData, staffNo: e.target.value })} placeholder="####" />
                     </div>
                     <div>
                         <label className="text-xs font-bold text-slate-500 uppercase">Ext</label>
-                        <input className="w-full border-b border-slate-200 py-2 text-sm text-slate-700 focus:outline-none focus:border-indigo-500"
+                        <input className="w-full border-b border-slate-200 py-2 text-sm font-medium text-slate-900 focus:outline-none focus:border-indigo-500"
                             value={formData.ext} onChange={e => setFormData({ ...formData, ext: e.target.value })} placeholder="####" />
                     </div>
                 </div>
@@ -534,9 +534,9 @@ const StaffForm = ({ initialData, onSave, onDelete, projects, isEditing }) => {
                 <div>
                     <label className="text-xs font-bold text-slate-500 uppercase">Contact</label>
                     <div className="grid grid-cols-1 gap-2 mt-1">
-                        <input className="w-full bg-slate-50 rounded px-3 py-2 text-xs border border-slate-200 focus:outline-none focus:border-indigo-300"
+                        <input className="w-full bg-slate-50 rounded px-3 py-2 text-xs font-medium text-slate-900 border border-slate-200 focus:outline-none focus:border-indigo-300"
                             value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} placeholder="Email Address" />
-                        <input className="w-full bg-slate-50 rounded px-3 py-2 text-xs border border-slate-200 focus:outline-none focus:border-indigo-300"
+                        <input className="w-full bg-slate-50 rounded px-3 py-2 text-xs font-medium text-slate-900 border border-slate-200 focus:outline-none focus:border-indigo-300"
                             value={formData.mobile} onChange={e => setFormData({ ...formData, mobile: e.target.value })} placeholder="Mobile Number" />
                     </div>
                 </div>

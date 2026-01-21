@@ -213,7 +213,7 @@ const DepartmentDashboard = () => {
                                 <div>
                                     <label className="text-xs font-bold text-slate-500 uppercase block mb-1">Department Name</label>
                                     <input
-                                        className="w-full text-lg font-bold text-slate-800 border-b border-slate-300 bg-transparent focus:outline-none focus:border-indigo-500 py-1"
+                                        className="w-full text-lg font-bold text-slate-900 border-b border-slate-300 bg-transparent focus:outline-none focus:border-indigo-500 py-1"
                                         value={tempProfile.name}
                                         onChange={(e) => setTempProfile({ ...tempProfile, name: e.target.value })}
                                     />
@@ -221,7 +221,7 @@ const DepartmentDashboard = () => {
                                 <div>
                                     <label className="text-xs font-bold text-slate-500 uppercase block mb-1">Head of Department</label>
                                     <input
-                                        className="w-full text-sm text-slate-700 border-b border-slate-300 bg-transparent focus:outline-none focus:border-indigo-500 py-1"
+                                        className="w-full text-sm font-bold text-slate-900 border-b border-slate-300 bg-transparent focus:outline-none focus:border-indigo-500 py-1"
                                         value={tempProfile.hod}
                                         onChange={(e) => setTempProfile({ ...tempProfile, hod: e.target.value })}
                                     />
@@ -229,7 +229,7 @@ const DepartmentDashboard = () => {
                                 <div>
                                     <label className="text-xs font-bold text-slate-500 uppercase block mb-1">Mandate / Mission</label>
                                     <textarea
-                                        className="w-full text-sm italic text-slate-600 border border-slate-300 rounded p-3 focus:outline-none focus:border-indigo-500 bg-white"
+                                        className="w-full text-sm italic font-medium text-slate-900 border border-slate-300 rounded p-3 focus:outline-none focus:border-indigo-500 bg-white"
                                         value={tempProfile.mandate}
                                         onChange={(e) => setTempProfile({ ...tempProfile, mandate: e.target.value })}
                                         rows={3}
@@ -348,11 +348,11 @@ const DepartmentDashboard = () => {
                                 <div>
                                     <div className="text-[10px] font-bold text-slate-500 uppercase">
                                         OPEX (Admin) <span className={`text-white px-1 rounded ml-1 ${executiveData.opexStatus === 'Overspend' ? 'bg-rose-500' :
-                                                executiveData.opexStatus === 'Watching' ? 'bg-amber-500' : 'bg-slate-700'
+                                            executiveData.opexStatus === 'Watching' ? 'bg-amber-500' : 'bg-slate-700'
                                             }`}>{executiveData.opexStatus}</span>
                                     </div>
                                     <div className={`text-lg font-bold tracking-tight flex items-center gap-1 ${executiveData.opexVariance > 5 ? 'text-rose-400' :
-                                            executiveData.opexVariance > 0 ? 'text-amber-400' : 'text-emerald-400'
+                                        executiveData.opexVariance > 0 ? 'text-amber-400' : 'text-emerald-400'
                                         }`}>
                                         Tracking {executiveData.opexVariance > 0 ? '+' : ''}{executiveData.opexVariance.toFixed(1)}% vs Forecast
                                     </div>

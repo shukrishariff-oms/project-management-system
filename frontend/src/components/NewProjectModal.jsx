@@ -189,7 +189,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             name="project_code"
                             value={formData.project_code}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-bold"
                             placeholder="e.g. PRJ-2026-001"
                         />
                     </div>
@@ -203,7 +203,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-bold"
                             placeholder="Enter project name"
                             required
                         />
@@ -220,7 +220,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             name="start_date"
                             value={formData.start_date}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-bold"
                             required
                         />
                     </div>
@@ -235,7 +235,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             value={formData.end_date}
                             onChange={handleChange}
                             min={formData.start_date} // Validation: End date cannot be before start date
-                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-bold"
                             required
                         />
                     </div>
@@ -249,7 +249,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             name="planned_cost"
                             value={formData.planned_cost}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-bold"
                             placeholder="0.00"
                             step="0.01"
                             min="0"
@@ -265,7 +265,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             name="status"
                             value={formData.status || 'Not Started'}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-bold"
                         >
                             <option value="Not Started">Not Started</option>
                             <option value="In Progress">In Progress</option>
@@ -289,7 +289,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                                     project_manager: selectedUser ? selectedUser.full_name : ''
                                 });
                             }}
-                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-bold"
                         >
                             <option value="">-- Assign to Team Member --</option>
                             {staffList.map(user => (
@@ -378,7 +378,7 @@ const NewProjectModal = ({ isOpen, onClose, onSuccess, editMode = false, project
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-medium"
                             placeholder="Optional project remarks..."
                             rows="2"
                         />

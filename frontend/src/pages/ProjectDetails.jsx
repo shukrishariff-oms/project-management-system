@@ -1403,7 +1403,7 @@ const ProjectDetails = () => {
                                             type="text"
                                             value={paymentForm.deliverable}
                                             onChange={(e) => setPaymentForm({ ...paymentForm, deliverable: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-bold"
                                             required
                                         />
                                     </div>
@@ -1413,7 +1413,7 @@ const ProjectDetails = () => {
                                             type="text"
                                             value={paymentForm.phase}
                                             onChange={(e) => setPaymentForm({ ...paymentForm, phase: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                             required
                                         />
                                     </div>
@@ -1426,7 +1426,7 @@ const ProjectDetails = () => {
                                             type="date"
                                             value={paymentForm.plan_date}
                                             onChange={(e) => setPaymentForm({ ...paymentForm, plan_date: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                             required
                                         />
                                     </div>
@@ -1437,7 +1437,7 @@ const ProjectDetails = () => {
                                             step="0.01"
                                             value={paymentForm.planned_amount}
                                             onChange={(e) => setPaymentForm({ ...paymentForm, planned_amount: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-bold"
                                             required
                                         />
                                     </div>
@@ -1464,7 +1464,7 @@ const ProjectDetails = () => {
                                             type="date"
                                             value={paymentForm.payment_date}
                                             onChange={(e) => setPaymentForm({ ...paymentForm, payment_date: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                         />
                                     </div>
                                 </div>
@@ -1474,7 +1474,7 @@ const ProjectDetails = () => {
                                     <textarea
                                         value={paymentForm.remark}
                                         onChange={(e) => setPaymentForm({ ...paymentForm, remark: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                         rows="2"
                                     />
                                 </div>
@@ -1486,7 +1486,7 @@ const ProjectDetails = () => {
                                             type="text"
                                             value={paymentForm.po_number}
                                             onChange={(e) => setPaymentForm({ ...paymentForm, po_number: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-bold"
                                         />
                                     </div>
                                     <div>
@@ -1495,7 +1495,7 @@ const ProjectDetails = () => {
                                             type="text"
                                             value={paymentForm.invoice_number}
                                             onChange={(e) => setPaymentForm({ ...paymentForm, invoice_number: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-bold"
                                         />
                                     </div>
                                 </div>
@@ -1505,7 +1505,7 @@ const ProjectDetails = () => {
                                     <textarea
                                         value={paymentForm.supporting_document}
                                         onChange={(e) => setPaymentForm({ ...paymentForm, supporting_document: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                         placeholder="Enter document names or URLs (one per line)..."
                                         rows="3"
                                     />
@@ -1552,7 +1552,7 @@ const ProjectDetails = () => {
                                             type="date"
                                             value={matterForm.date_raised}
                                             onChange={(e) => setMatterForm({ ...matterForm, date_raised: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                             required
                                         />
                                     </div>
@@ -1561,7 +1561,7 @@ const ProjectDetails = () => {
                                         <select
                                             value={matterForm.level}
                                             onChange={(e) => setMatterForm({ ...matterForm, level: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-bold"
                                         >
                                             <option value="MANCOM">MANCOM (Management Committee)</option>
                                             <option value="TBC">TBC (Tender Board Committee)</option>
@@ -1575,7 +1575,7 @@ const ProjectDetails = () => {
                                     <textarea
                                         value={matterForm.issue_description}
                                         onChange={(e) => setMatterForm({ ...matterForm, issue_description: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                         rows="3"
                                         required
                                     />
@@ -1586,7 +1586,7 @@ const ProjectDetails = () => {
                                     <textarea
                                         value={matterForm.action_updates}
                                         onChange={(e) => setMatterForm({ ...matterForm, action_updates: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                         rows="4"
                                         placeholder="Log actions and updates here..."
                                     />
@@ -1599,7 +1599,7 @@ const ProjectDetails = () => {
                                             type="text"
                                             value={matterForm.pic}
                                             onChange={(e) => setMatterForm({ ...matterForm, pic: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                         />
                                     </div>
                                     <div>
@@ -1608,7 +1608,7 @@ const ProjectDetails = () => {
                                             type="date"
                                             value={matterForm.target_date}
                                             onChange={(e) => setMatterForm({ ...matterForm, target_date: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                         />
                                     </div>
                                 </div>
@@ -1619,7 +1619,7 @@ const ProjectDetails = () => {
                                         <select
                                             value={matterForm.status}
                                             onChange={(e) => setMatterForm({ ...matterForm, status: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-bold"
                                         >
                                             <option value="Open">Open</option>
                                             <option value="Closed">Closed</option>
@@ -1632,7 +1632,7 @@ const ProjectDetails = () => {
                                             type="date"
                                             value={matterForm.date_closed}
                                             onChange={(e) => setMatterForm({ ...matterForm, date_closed: e.target.value })}
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                             disabled={matterForm.status === 'Open'}
                                         />
                                     </div>
@@ -1644,7 +1644,7 @@ const ProjectDetails = () => {
                                         type="text"
                                         value={matterForm.remarks}
                                         onChange={(e) => setMatterForm({ ...matterForm, remarks: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-900 font-medium"
                                     />
                                 </div>
 
